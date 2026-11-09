@@ -17,7 +17,7 @@ unset($_SESSION['flash']);
 <aside class="sidebar">
   <a class="brand" href="index.php">
     <img src="assets/logo qltc.jpg" alt="Logo Me & Money" class="brand-icon">
-            Me & Money
+    <span>Me & Money</span></a>
 <div class="side-caption">TỔNG QUAN</div>
 <a href="index.php" class="nav-link"><i data-lucide="house"></i><span>Trang chủ</span></a>
 <div class="side-caption">QUẢN LÝ TÀI CHÍNH</div>
