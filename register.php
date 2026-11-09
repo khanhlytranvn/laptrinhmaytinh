@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Đăng ký | Me n Money</title>
+    <title>Đăng ký | Me & Money</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -64,12 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="auth-card">
 
         <div class="auth-brand">
-            <span class="brand-icon">₫</span> Me n Money
+            <img src="assets/logo qltc.jpg" alt="Logo Me & Money" class="brand-icon">
+            Me & Money
         </div>
 
         <h1>Tạo tài khoản</h1>
 
-        <p>Money is evrything</p>
+        <p>Money is everything !</p>
 
         <?php if ($error): ?>
             <div class="alert error">
