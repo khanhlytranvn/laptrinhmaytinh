@@ -77,3 +77,5 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 .form-grid{grid-template-columns:1fr}
 .field.full{grid-column:auto}
 .table-scroll{overflow-x:auto}table{min-width:580px}}
+.nav-link {display: flex;align-items: center;gap: 12px;}
+.nav-link svg {width: 19px;height: 19px;stroke-width: 1.8;flex-shrink: 0;}
