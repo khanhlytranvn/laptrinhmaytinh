@@ -1,0 +1,36 @@
+erDiagram
+    USERS ||--o{ TRANSACTIONS : owns
+    USERS ||--o{ CATEGORIES : creates
+    USERS ||--o{ BUDGETS : sets
+    CATEGORIES ||--o{ TRANSACTIONS : classifies
+    CATEGORIES ||--o{ BUDGETS : limits
+    USERS {
+      int id PK
+      varchar full_name
+      varchar email UK
+      varchar password
+      enum role
+      boolean status
+    }
+    CATEGORIES {
+      int id PK
+      int user_id FK
+      varchar name
+      enum type
+    }
+    TRANSACTIONS {
+      int id PK
+      int user_id FK
+      int category_id FK
+      enum type
+      decimal amount
+      date transaction_date
+      varchar note
+    }
+    BUDGETS {
+      int id PK
+      int user_id FK
+      int category_id FK
+      char budget_month
+      decimal amount
+    }
