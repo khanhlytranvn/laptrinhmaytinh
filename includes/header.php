@@ -17,13 +17,13 @@ unset($_SESSION['flash']);
 <aside class="sidebar">
   <a class="brand" href="index.php"><span class="brand-icon">₫</span><span>Sổ Thu Chi</span></a>
   <div class="side-caption">TỔNG QUAN</div>
-  <a href="index.php" class="nav-link">▦ <span>Dashboard</span></a>
-  <div class="side-caption">QUẢN LÝ TÀI CHÍNH</div>
-  <a href="transactions.php?type=income" class="nav-link">↗ <span>Khoản thu</span></a>
-  <a href="transactions.php?type=expense" class="nav-link">↙ <span>Khoản chi</span></a>
-  <a href="categories.php" class="nav-link">▤ <span>Danh mục</span></a>
-  <a href="budgets.php" class="nav-link">◷ <span>Ngân sách</span></a>
-  <a href="reports.php" class="nav-link">▥ <span>Báo cáo</span></a>
+<a href="index.php" class="nav-link"><i data-lucide="house"></i><span>Trang chủ</span></a>
+<div class="side-caption">QUẢN LÝ TÀI CHÍNH</div>
+<a href="transactions.php?type=income" class="nav-link"><i data-lucide="circle-arrow-down"></i><span>Khoản thu</span></a>
+<a href="transactions.php?type=expense" class="nav-link"><i data-lucide="circle-arrow-up"></i><span>Khoản chi</span></a>
+<a href="categories.php" class="nav-link"><i data-lucide="tags"></i><span>Danh mục</span></a>
+<a href="budgets.php" class="nav-link"><i data-lucide="wallet"></i><span>Ngân sách</span></a>
+<a href="reports.php" class="nav-link"><i data-lucide="chart-column"></i><span>Báo cáo</span></a>
   <?php if (is_admin()): ?>
   <div class="side-caption">QUẢN TRỊ</div>
   <a href="users.php" class="nav-link">♙ <span>Người dùng</span></a>
