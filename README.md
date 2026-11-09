@@ -1,2 +1,0 @@
-# laptrinhmaytinh
-Ketthuchocphan
