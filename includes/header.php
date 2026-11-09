@@ -16,7 +16,7 @@ unset($_SESSION['flash']);
 <div class="app-shell">
 <aside class="sidebar">
   <a class="brand" href="index.php"><span class="brand-icon">₫</span><span>Sổ Thu Chi</span></a>
-  <div class="side-caption">TỔNG QUAN</div>
+<div class="side-caption">TỔNG QUAN</div>
 <a href="index.php" class="nav-link"><i data-lucide="house"></i><span>Trang chủ</span></a>
 <div class="side-caption">QUẢN LÝ TÀI CHÍNH</div>
 <a href="transactions.php?type=income" class="nav-link"><i data-lucide="circle-arrow-down"></i><span>Khoản thu</span></a>
