@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Đăng nhập |Me n Money </title>
+    <title>Đăng nhập |Me & Money </title>
 
     <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -49,12 +49,12 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     <div class="auth-card">
 
         <div class="auth-brand">
-            <img src="assets/logo qltc.jpg" alt="Logo Me n Money" class="brand-icon">
-            Me n Money
+            <img src="assets/logo qltc.jpg" alt="Logo Me & Money" class="brand-icon">
+            Me & Money
         </div>
 
         <h1>Chào mừng trở lại!</h1>
-        <p>Money is everything.</p>
+        <p>Money is everything</p>
 
         <?php if($error): ?>
             <div class="alert error">

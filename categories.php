@@ -7,7 +7,41 @@ if($_SERVER['REQUEST_METHOD']==='POST'){$action=$_POST['action']??'save';$id=(in
 }
 $edit=null;if(isset($_GET['edit'])){$s=$pdo->prepare("SELECT * FROM categories WHERE id=? AND user_id=?");$s->execute([(int)$_GET['edit'],$uid]);$edit=$s->fetch();}
 $s=$pdo->prepare("SELECT c.*,COUNT(t.id) used_count FROM categories c LEFT JOIN transactions t ON t.category_id=c.id AND t.user_id=? WHERE c.user_id IS NULL OR c.user_id=? GROUP BY c.id ORDER BY c.type,c.name");$s->execute([$uid,$uid]);$rows=$s->fetchAll();
-$pageTitle='Quản lý danh mục';require 'includes/header.php';?>
+$pageTitle='Quản lý danh mục';require 'includes/header.php';
+function category_icon($name, $type) {
+    $n = mb_strtolower(trim($name), 'UTF-8');
+    $icons = [
+        'ăn uống'=>'🍜', 'đồ ăn'=>'🍜', 'thực phẩm'=>'🥗',
+        'mua sắm'=>'🛍️', 'quần áo'=>'👕', 'di chuyển'=>'🚗',
+        'xăng xe'=>'⛽', 'học tập'=>'📚', 'giáo dục'=>'🎓',
+        'nhà cửa'=>'🏠', 'tiền nhà'=>'🏠', 'sức khỏe'=>'💊',
+        'y tế'=>'💊', 'giải trí'=>'🎮', 'du lịch'=>'✈️',
+        'lương'=>'💰', 'tiền lương'=>'💰', 'thưởng'=>'🎁',
+        'đầu tư'=>'📈', 'kinh doanh'=>'💼', 'quà tặng'=>'🎀',
+        'khác'=>'📦'
+    ];
+    foreach ($icons as $keyword => $icon) {
+        if (mb_strpos($n, $keyword, 0, 'UTF-8') !== false) return $icon;
+    }
+    return $type === 'income' ? '💵' : '📌';
+}
+?>
 <div class="grid two-col"><section class="card form-card"><div class="section-head"><h2><?=$edit?'Sửa danh mục':'Tạo danh mục mới'?></h2></div><form method="post"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><input type="hidden" name="id" value="<?=e($edit['id']??'')?>"><div class="field"><label>Tên danh mục</label><input name="name" required value="<?=e($edit['name']??'')?>" placeholder="Ví dụ: Tiền thưởng"></div><div class="field" style="margin-top:14px"><label>Loại</label><select name="type"><option value="income" <?=($edit['type']??'')==='income'?'selected':''?>>Thu nhập</option><option value="expense" <?=($edit['type']??'expense')==='expense'?'selected':''?>>Chi tiêu</option></select></div><div class="form-actions"><button class="btn">Lưu danh mục</button><?php if($edit):?><a class="btn btn-light" href="categories.php">Hủy</a><?php endif;?></div></form></section>
-<section class="card"><div class="section-head"><h2>Danh mục hiện có</h2></div><table><thead><tr><th>TÊN</th><th>LOẠI</th><th>GIAO DỊCH</th><th></th></tr></thead><tbody><?php foreach($rows as $r):?><tr><td><strong><?=e($r['name'])?></strong></td><td><span class="pill <?=$r['type']?>"><?=$r['type']==='income'?'Thu nhập':'Chi tiêu'?></span></td><td><?=$r['used_count']?></td><td><?php if($r['user_id']):?><div class="actions"><a class="btn btn-light btn-small" href="?edit=<?=$r['id']?>">Sửa</a><form method="post" onsubmit="return confirm('Xóa danh mục này?')"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?=$r['id']?>"><button class="btn btn-danger btn-small">Xóa</button></form></div><?php else:?><span class="muted">Mặc định</span><?php endif;?></td></tr><?php endforeach;?></tbody></table></section></div>
+<section class="card category-list-card">
+<div class="section-head"><h2>Danh mục hiện có</h2><span class="tag"><?=count($rows)?> danh mục</span></div>
+<?php if(!$rows): ?>
+<div class="empty-state"><div class="empty-state-icon">🗂️</div><h3>Chưa có danh mục nào</h3><p>Tạo danh mục đầu tiên để phân loại các khoản thu và chi của bạn.</p></div>
+<?php else: ?>
+<div class="table-scroll"><table><thead><tr><th>TÊN</th><th>LOẠI</th><th>GIAO DỊCH</th><th></th></tr></thead><tbody>
+<?php foreach($rows as $r):?>
+<tr>
+<td><div class="category-name"><span class="category-icon <?=$r['type']?>"><?=e(category_icon($r['name'], $r['type']))?></span><strong><?=e($r['name'])?></strong></div></td>
+<td><span class="pill <?=$r['type']?>"><?=$r['type']==='income'?'Thu nhập':'Chi tiêu'?></span></td>
+<td><span class="category-count"><?=$r['used_count']?></span></td>
+<td><?php if($r['user_id']):?><div class="actions"><a class="btn btn-light btn-small" href="?edit=<?=$r['id']?>">Sửa</a><form method="post" onsubmit="return confirm('Xóa danh mục này?')"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?=$r['id']?>"><button class="btn btn-danger btn-small">Xóa</button></form></div><?php else:?><span class="muted">Mặc định</span><?php endif;?></td>
+</tr>
+<?php endforeach;?>
+</tbody></table></div>
+<?php endif; ?>
+</section></div>
 <?php require 'includes/footer.php';?>
