@@ -53,7 +53,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             Me & Money
         </div>
 
-        <h1>Money is everything !</h1>
+        <h1>Chào mừng trở lại!</h1>
+        <p>Money is everything.</p>
 
         <?php if($error): ?>
             <div class="alert error">
