@@ -8,14 +8,16 @@ unset($_SESSION['flash']);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?= e($pageTitle) ?> | Sổ Thu Chi</title>
+<title><?= e($pageTitle) ?> | Me & Money</title>
 <link rel="stylesheet" href="assets/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div class="app-shell">
 <aside class="sidebar">
-  <a class="brand" href="index.php"><span class="brand-icon">₫</span><span>Sổ Thu Chi</span></a>
+  <a class="brand" href="index.php">
+    <img src="assets/logo qltc.jpg" alt="Logo Me & Money" class="brand-icon">
+    <span>Me & Money</span></a>
 <div class="side-caption">TỔNG QUAN</div>
 <a href="index.php" class="nav-link"><i data-lucide="house"></i><span>Trang chủ</span></a>
 <div class="side-caption">QUẢN LÝ TÀI CHÍNH</div>

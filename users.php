@@ -1,6 +1,112 @@
 <?php
-require 'config.php';require 'includes/functions.php';require_login();if(!is_admin()){http_response_code(403);exit('Bạn không có quyền truy cập.');}verify_csrf();
-if($_SERVER['REQUEST_METHOD']==='POST'){$id=(int)$_POST['id'];if($id!==current_user_id()){$s=$pdo->prepare("UPDATE users SET status=IF(status=1,0,1) WHERE id=? AND role<>'admin'");$s->execute([$id]);set_flash('Đã cập nhật trạng thái tài khoản.');}redirect('users.php');}
-$rows=$pdo->query("SELECT u.id,u.full_name,u.email,u.role,u.status,u.created_at,COUNT(t.id) transaction_count FROM users u LEFT JOIN transactions t ON t.user_id=u.id GROUP BY u.id ORDER BY u.created_at DESC")->fetchAll();$pageTitle='Quản lý người dùng';require 'includes/header.php';?>
-<section class="card"><div class="section-head"><h2>Danh sách tài khoản</h2><span class="tag"><?=count($rows)?> tài khoản</span></div><div class="table-scroll"><table><thead><tr><th>HỌ TÊN</th><th>EMAIL</th><th>VAI TRÒ</th><th>GIAO DỊCH</th><th>TRẠNG THÁI</th><th>THAO TÁC</th></tr></thead><tbody><?php foreach($rows as $u):?><tr><td><strong><?=e($u['full_name'])?></strong></td><td><?=e($u['email'])?></td><td><?=e($u['role'])?></td><td><?=$u['transaction_count']?></td><td><span class="pill <?=$u['status']?'':'expense'?>"><?=$u['status']?'Hoạt động':'Đã khóa'?></span></td><td><?php if($u['role']!=='admin'):?><form method="post" onsubmit="return confirm('Thay đổi trạng thái tài khoản này?')"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><input type="hidden" name="id" value="<?=$u['id']?>"><button class="btn btn-light btn-small"><?=$u['status']?'Khóa':'Mở khóa'?></button></form><?php else:?><span class="muted">Quản trị</span><?php endif;?></td></tr><?php endforeach;?></tbody></table></div></section>
-<?php require 'includes/footer.php';?>
+require 'config.php';
+require 'includes/functions.php';
+
+require_login();
+
+if (!is_admin()) {
+    http_response_code(403);
+    exit('Bạn không có quyền truy cập.');
+}
+
+verify_csrf();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = (int)$_POST['id'];
+
+    if ($id !== current_user_id()) {
+        $s = $pdo->prepare("UPDATE users SET status=IF(status=1,0,1) WHERE id=? AND role<>'admin'");
+        $s->execute([$id]);
+
+        set_flash('Đã cập nhật trạng thái tài khoản.');
+    }
+
+    redirect('users.php');
+}
+
+$rows = $pdo->query("SELECT u.id,u.full_name,u.email,u.role,u.status,u.created_at,COUNT(t.id) transaction_count FROM users u LEFT JOIN transactions t ON t.user_id=u.id GROUP BY u.id ORDER BY u.created_at DESC")->fetchAll();
+
+$pageTitle = 'Quản lý người dùng';
+
+require 'includes/header.php';
+?>
+
+<section class="card">
+
+    <div class="section-head">
+        <h2>Danh sách tài khoản</h2>
+        <span class="tag"><?= count($rows) ?> tài khoản</span>
+    </div>
+
+    <div class="table-scroll">
+        <table>
+
+            <thead>
+                <tr>
+                    <th>HỌ TÊN</th>
+                    <th>EMAIL</th>
+                    <th>VAI TRÒ</th>
+                    <th>GIAO DỊCH</th>
+                    <th>TRẠNG THÁI</th>
+                    <th>THAO TÁC</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach ($rows as $u): ?>
+                    <tr>
+
+                        <td>
+                            <strong><?= e($u['full_name']) ?></strong>
+                        </td>
+
+                        <td>
+                            <?= e($u['email']) ?>
+                        </td>
+
+                        <td>
+                            <?= e($u['role']) ?>
+                        </td>
+
+                        <td>
+                            <?= $u['transaction_count'] ?>
+                        </td>
+
+                        <td>
+                            <span class="pill <?= $u['status'] ? '' : 'expense' ?>">
+                                <?= $u['status'] ? 'Hoạt động' : 'Đã khóa' ?>
+                            </span>
+                        </td>
+
+                        <td>
+                            <?php if ($u['role'] !== 'admin'): ?>
+
+                                <form method="post" onsubmit="return confirm('Thay đổi trạng thái tài khoản này?')">
+
+                                    <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
+
+                                    <input type="hidden" name="id" value="<?= $u['id'] ?>">
+
+                                    <button class="btn btn-light btn-small">
+                                        <?= $u['status'] ? 'Khóa' : 'Mở khóa' ?>
+                                    </button>
+
+                                </form>
+
+                            <?php else: ?>
+
+                                <span class="muted">Quản trị</span>
+
+                            <?php endif; ?>
+                        </td>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+
+        </table>
+    </div>
+
+</section>
+
+<?php require 'includes/footer.php'; ?>
