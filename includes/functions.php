@@ -18,7 +18,7 @@ function is_admin(): bool {
     return ($_SESSION['user']['role'] ?? '') === 'admin';
 }
 function money($amount): string {
-    return number_format((float)$amount, 0, ',', '.') . ' ₫';
+    return number_format((float)$amount, 0, ',', '.') . ' VND';
 }
 function set_flash(string $message, string $type='success'): void {
     $_SESSION['flash'] = ['message'=>$message, 'type'=>$type];
