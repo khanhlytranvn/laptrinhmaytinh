@@ -25,7 +25,7 @@ $pageTitle=$edit?'Sửa giao dịch':($type==='income'?'Quản lý khoản thu':
 <div class="field"><label>Loại giao dịch</label><select name="type" id="type" required><option value="income" <?=($edit['type']??$type)==='income'?'selected':''?>>Thu nhập</option><option value="expense" <?=($edit['type']??$type)==='expense'?'selected':''?>>Chi tiêu</option></select></div>
 <div class="field"><label>Danh mục</label><select name="category_id" id="category" required><?php foreach($allCats as $c):?><option value="<?=$c['id']?>" data-type="<?=$c['type']?>" <?=($edit['category_id']??'')==$c['id']?'selected':''?>><?=e($c['name'])?></option><?php endforeach;?></select></div>
 <div class="field"><label>Số tiền (VNĐ)</label><input type="number" name="amount" min="1" step="1" value="<?=e($edit['amount']??'')?>" required placeholder="Ví dụ: 500000"></div>
-<div class="field"><label>Ngày giao dịch</label><input type="text" name="transaction_date" value="<?= !empty($edit['transaction_date']) ? date('d/m/Y', strtotime($edit['transaction_date'])) : date('d/m/Y') ?>" placeholder="dd/mm/yyyy" required></div>
+<div class="field"><label>Ngày giao dịch</label><input type="date" name="transaction_date" value="<?=e($edit['transaction_date']??date('Y-m-d'))?>" required></div>
 <div class="field full"><label>Ghi chú</label><input name="note" maxlength="255" value="<?=e($edit['note']??'')?>" placeholder="Ví dụ: Lương tháng 11, ăn trưa..."></div>
 </div><div class="form-actions"><button class="btn"><?= $edit?'Lưu thay đổi':'Thêm giao dịch'?></button></div></form></section>
 <section class="card" style="margin-top:18px"><div class="section-head"><h2>Danh sách giao dịch (<?=count($rows)?>)</h2></div>
