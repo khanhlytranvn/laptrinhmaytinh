@@ -75,3 +75,19 @@ Ràng buộc duy nhất: (user_id, category_id, budget_month) trong budgets.
 - Mật khẩu người dùng được lưu bằng `password_hash`; truy vấn dùng PDO Prepared Statements.
 - Không nhập dữ liệu tài chính thật nếu máy tính dùng chung. Hãy đổi mật khẩu mẫu và sao lưu database.
 - Biểu đồ cần kết nối Internet để tải Chart.js từ CDN.
+
+## 9. Cài đặt phân hệ tiết kiệm và theo dõi nợ
+Sau khi website hiện tại đã chạy, mở `http://localhost/phpmyadmin`, chọn database `quan_ly_chi_tieu`, vào tab **Import** và chạy `database/migration_savings_debts.sql`. Đây là migration bổ sung, không nhập lại tệp SQL khởi tạo và không xóa dữ liệu đang có.
+
+Menu **Tiết kiệm** cho phép tạo mục tiêu, đặt số tiền và ngày dự kiến; ghi nhận gửi thêm hoặc rút tiền; xem số dư, tiến độ và lịch sử. Hệ thống chặn rút quá số dư. Xóa một mục tiêu cũng xóa lịch sử của mục tiêu đó.
+
+Menu **Theo dõi nợ** phân biệt khoản cần trả và khoản cần thu hồi. Mỗi khoản có người liên quan, nội dung, số tiền gốc, hạn thanh toán và ghi chú. Có thể ghi nhiều lần thanh toán/thu hồi; số dư còn lại được tính từ lịch sử. Hệ thống chặn giao dịch vượt dư nợ, không cho giảm số tiền gốc thấp hơn số đã thanh toán và giữ lại khoản nợ đã có lịch sử để bảo toàn dữ liệu.
+
+Mỗi thao tác ghi đều cần đăng nhập và CSRF token; các truy vấn giới hạn theo tài khoản hiện tại. Giao dịch cập nhật số dư dùng transaction và khóa bản ghi cha để tránh ghi vượt số tiền khi có nhiều yêu cầu cùng lúc.
+
+### Kiểm tra thủ công sau khi cài migration
+1. Đăng nhập và tạo mục tiêu tiết kiệm; gửi một khoản tiền rồi kiểm tra số dư và lịch sử.
+2. Thử rút số tiền lớn hơn số dư; ứng dụng cần báo lỗi và không thêm dòng lịch sử. Rút một khoản nhỏ hơn số dư và kiểm tra số tiền còn lại.
+3. Tạo một khoản **Tôi đi vay / cần trả** và một khoản **Tôi cho vay / cần thu**; xác nhận tổng dư nợ hiển thị đúng ở hai ô riêng.
+4. Ghi nhận một phần thanh toán hoặc thu hồi; kiểm tra số dư và lịch sử. Thử ghi số tiền vượt số dư, ứng dụng phải từ chối.
+5. Tạo tài khoản thứ hai và xác nhận tài khoản đó không nhìn thấy mục tiêu, khoản nợ hoặc lịch sử của tài khoản đầu tiên.

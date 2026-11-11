@@ -25,6 +25,8 @@ unset($_SESSION['flash']);
 <a href="transactions.php?type=expense" class="nav-link"><i data-lucide="circle-arrow-down"></i><span>Khoản chi</span></a>
 <a href="categories.php" class="nav-link"><i data-lucide="tags"></i><span>Danh mục</span></a>
 <a href="budgets.php" class="nav-link"><i data-lucide="wallet"></i><span>Ngân sách</span></a>
+<a href="savings.php" class="nav-link"><i data-lucide="piggy-bank"></i><span>Tiết kiệm</span></a>
+<a href="debts.php" class="nav-link"><i data-lucide="hand-coins"></i><span>Theo dõi nợ</span></a>
 <a href="reports.php" class="nav-link"><i data-lucide="chart-column"></i><span>Báo cáo</span></a>
   <?php if (is_admin()): ?>
   <div class="side-caption">QUẢN TRỊ</div>
