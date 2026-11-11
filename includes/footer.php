@@ -9,4 +9,8 @@ document.querySelectorAll('[data-confirm]').forEach(el => el.addEventListener('c
   if (!confirm(el.dataset.confirm)) e.preventDefault();
 }));
 </script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
 </body></html>
