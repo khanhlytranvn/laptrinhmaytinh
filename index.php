@@ -183,7 +183,7 @@ require 'includes/header.php';
     <div class="card stat-card">
         <div class="stat-top">
             <span class="stat-label">Số dư tháng này</span>
-            <span class="stat-icon">◈</span>
+            <span class="stat-icon"><i data-lucide="badge-dollar-sign"></span>
         </div>
 
         <div class="stat-value <?= $balance >= 0 ? 'blue' : 'red' ?>">
@@ -198,7 +198,7 @@ require 'includes/header.php';
     <div class="card stat-card">
         <div class="stat-top">
             <span class="stat-label">Ngân sách đã thiết lập</span>
-            <span class="stat-icon">▤</span>
+            <span class="stat-icon"><i data-lucide="wallet"></i></span>
         </div>
 
         <div class="stat-value">

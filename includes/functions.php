@@ -19,7 +19,6 @@ function is_admin(): bool {
 }
 function money($amount): string {
     return number_format((float)$amount, 0, ',', '.') . ' VND';
-    return number_format((float)$amount, 0, ',', '.') . ' VNĐ';
 }
 function set_flash(string $message, string $type='success'): void {
     $_SESSION['flash'] = ['message'=>$message, 'type'=>$type];
