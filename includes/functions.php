@@ -40,3 +40,40 @@ function redirect(string $url): never {
     header("Location: $url");
     exit;
 }
+// Tự động chọn icon theo tên danh mục
+function category_icon($name, $type) {
+    $n = mb_strtolower(trim($name), 'UTF-8');
+
+    $icons = [
+        'ăn uống' => '🍜',
+        'đồ ăn' => '🍜',
+        'thực phẩm' => '🥗',
+        'mua sắm' => '🛍️',
+        'quần áo' => '👕',
+        'di chuyển' => '🚗',
+        'xăng xe' => '⛽',
+        'học tập' => '📚',
+        'giáo dục' => '🎓',
+        'nhà cửa' => '🏠',
+        'tiền nhà' => '🏠',
+        'sức khỏe' => '💊',
+        'y tế' => '💊',
+        'giải trí' => '🎮',
+        'du lịch' => '✈️',
+        'lương' => '💰',
+        'tiền lương' => '💰',
+        'thưởng' => '🎁',
+        'đầu tư' => '📈',
+        'kinh doanh' => '💼',
+        'quà tặng' => '🎀',
+        'khác' => '📦'
+    ];
+
+    foreach ($icons as $keyword => $icon) {
+        if (mb_strpos($n, $keyword, 0, 'UTF-8') !== false) {
+            return $icon;
+        }
+    }
+
+    return $type === 'income' ? '💵' : '📌';
+}
