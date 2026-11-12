@@ -26,7 +26,8 @@ unset($_SESSION['flash']);
 <a href="categories.php" class="nav-link"><i data-lucide="tags"></i><span>Danh mục</span></a>
 <a href="budgets.php" class="nav-link"><i data-lucide="wallet"></i><span>Ngân sách</span></a>
 <a href="reports.php" class="nav-link"><i data-lucide="chart-column"></i><span>Báo cáo</span></a>
-  <?php if (is_admin()): ?>
+<a href="settings.php" class="nav-link"><i data-lucide="settings"></i><span>Cài đặt</span></a> 
+ <?php if (is_admin()): ?>
   <div class="side-caption">QUẢN TRỊ</div>
   <a href="users.php" class="nav-link">♙ <span>Người dùng</span></a>
   <?php endif; ?>
