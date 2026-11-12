@@ -60,43 +60,86 @@ $stmt = $pdo->prepare("
 $stmt->execute([$uid, $month]);
 $budgets = $stmt->fetchAll();
 
-// 4. DU LIEU BIEU DO 7 NGAY GAN NHAT
+// 4. DU LIEU BIEU DO THEO KHOANG THOI GIAN
+
+$period = $_GET['period'] ?? '7days';
+
+if (!in_array($period, ['7days', '1year'], true)) {
+    $period = '7days';
+}
+
+$today = new DateTimeImmutable('today');
+$year = $today->format('Y');
+
+if ($period === '7days') {
+    $days = 7;
+    $startDate = $today->modify('-6 days')->format('Y-m-d');
+    $groupFormat = '%Y-%m-%d';
+    $chartDescription = 'Thống kê trong 7 ngày gần đây';
+
+} else {
+    $days = 0;
+    $startDate = $year . '-01-01';
+    $groupFormat = '%Y-%m';
+    $chartDescription = 'Thống kê 12 tháng năm ' . $year;
+}
+
 $chartStmt = $pdo->prepare("
     SELECT
-        transaction_date,
+        DATE_FORMAT(transaction_date, '$groupFormat') AS period_key,
         type,
         SUM(amount) AS total
     FROM transactions
     WHERE user_id = ?
-    AND transaction_date >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
-    AND transaction_date <= CURDATE()
-    GROUP BY transaction_date, type
-    ORDER BY transaction_date
+    AND transaction_date >= ?
+    AND transaction_date <= ?
+    GROUP BY period_key, type
+    ORDER BY period_key
 ");
-$chartStmt->execute([$uid]);
+
+$chartStmt->execute([
+    $uid,
+    $startDate,
+    $today->format('Y-m-d')
+]);
+
 $chartRows = $chartStmt->fetchAll();
 
 $labels = [];
 $income = [];
 $expense = [];
 
-for ($i = 6; $i >= 0; $i--) {
-    $date = date('Y-m-d', strtotime("-$i days"));
-    $label = date('d/m', strtotime($date));
+if ($period === '1year') {
 
-    $labels[] = $label;
-    $income[$date] = 0;
-    $expense[$date] = 0;
+    for ($i = 1; $i <= 12; $i++) {
+        $key = sprintf('%s-%02d', $year, $i);
+
+        $labels[] = (string)$i;
+        $income[$key] = 0;
+        $expense[$key] = 0;
+    }
+
+} else {
+
+    for ($i = $days - 1; $i >= 0; $i--) {
+        $date = $today->modify("-$i days")->format('Y-m-d');
+
+        $labels[] = date('d/m', strtotime($date));
+        $income[$date] = 0;
+        $expense[$date] = 0;
+    }
 }
 
 foreach ($chartRows as $r) {
-    $date = $r['transaction_date'];
+    $key = $r['period_key'];
 
-    if (isset($income[$date])) {
-        if ($r['type'] === 'income') {
-            $income[$date] = (float)$r['total'];
-        } else {
-            $expense[$date] = (float)$r['total'];
+    if ($r['type'] === 'income') {
+        if (isset($income[$key])) {
+            $income[$key] = (float)$r['total'];
+        }
+    } else {
+        if (isset($expense[$key])) {
+            $expense[$key] = (float)$r['total'];
         }
     }
 }
@@ -175,16 +218,31 @@ require 'includes/header.php';
     <!-- BIEU DO -->
     <section class="card dashboard-chart">
 
-        <div class="section-head">
-            <div>
-                <h2>Biến động thu – chi</h2>
-                <p class="section-description">
-                    Thống kê trong 7 ngày gần đây
-                </p>
-            </div>
+        
+<div class="section-head">
+    <div>
+        <h2>Biến động thu – chi</h2>
+        <p class="section-description">
+            <?= e($chartDescription) ?>
+        </p>
+    </div>
 
-            <span class="tag">7 ngày</span>
-        </div>
+    <form method="get" style="margin:0;">
+        <select name="period"
+                onchange="this.form.submit()"
+                style="padding:8px 12px; border:1px solid #e2e8f0; border-radius:8px; background:white; cursor:pointer;">
+
+            <option value="7days" <?= $period === '7days' ? 'selected' : '' ?>>
+                7 ngày
+            </option>
+
+            <option value="1year" <?= $period === '1year' ? 'selected' : '' ?>>
+                1 năm
+            </option>
+
+        </select>
+    </form>
+</div>
 
         <div class="chart-wrap">
             <canvas id="weeklyChart"></canvas>
@@ -388,74 +446,25 @@ new Chart(chartCanvas, {
 
     data: {
         labels: chartLabels,
-
         datasets: [
             {
                 label: 'Thu nhập',
                 data: incomeData,
                 backgroundColor: '#31ad83',
-                borderRadius: 6,
-                barPercentage: 0.65
+                borderRadius: 6
             },
             {
                 label: 'Chi tiêu',
                 data: expenseData,
                 backgroundColor: '#ed777e',
-                borderRadius: 6,
-                barPercentage: 0.65
+                borderRadius: 6
             }
         ]
     },
 
     options: {
         responsive: true,
-        maintainAspectRatio: false,
-
-        interaction: {
-            mode: 'index',
-            intersect: false
-        },
-
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    usePointStyle: true,
-                    padding: 20
-                }
-            },
-
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return context.dataset.label + ': ' +
-                            context.raw.toLocaleString('vi-VN') + ' ₫';
-                    }
-                }
-            }
-        },
-
-        scales: {
-            y: {
-                beginAtZero: true,
-
-                ticks: {
-                    callback: function(value) {
-                        return value.toLocaleString('vi-VN');
-                    }
-                },
-
-                grid: {
-                    color: '#edf0f5'
-                }
-            },
-
-            x: {
-                grid: {
-                    display: false
-                }
-            }
-        }
+        maintainAspectRatio: false
     }
 });
 </script>

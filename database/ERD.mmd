@@ -2,6 +2,10 @@ erDiagram
     USERS ||--o{ TRANSACTIONS : owns
     USERS ||--o{ CATEGORIES : creates
     USERS ||--o{ BUDGETS : sets
+    USERS ||--o{ SAVINGS_GOALS : owns
+    SAVINGS_GOALS ||--o{ SAVINGS_ENTRIES : records
+    USERS ||--o{ DEBTS : owns
+    DEBTS ||--o{ DEBT_ENTRIES : records
     CATEGORIES ||--o{ TRANSACTIONS : classifies
     CATEGORIES ||--o{ BUDGETS : limits
     USERS {
@@ -33,4 +37,36 @@ erDiagram
       int category_id FK
       char budget_month
       decimal amount
+    }
+    SAVINGS_GOALS {
+      int id PK
+      int user_id FK
+      varchar name
+      decimal target_amount
+      date target_date
+      varchar note
+    }
+    SAVINGS_ENTRIES {
+      int id PK
+      int goal_id FK
+      int user_id FK
+      enum entry_type
+      decimal amount
+      date entry_date
+    }
+    DEBTS {
+      int id PK
+      int user_id FK
+      enum direction
+      varchar person_name
+      varchar title
+      decimal principal_amount
+      date due_date
+    }
+    DEBT_ENTRIES {
+      int id PK
+      int debt_id FK
+      int user_id FK
+      decimal amount
+      date entry_date
     }

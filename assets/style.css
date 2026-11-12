@@ -160,6 +160,11 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 .budget-meta{display:flex;justify-content:space-between;font-size:11px}
 .tag{font-size:10px;color:#6c7d92;background:#f0f3f8;border-radius:6px;padding:4px 7px}
 @media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.sidebar{width:210px}.main-area{width:calc(100% - 210px);padding:23px}}
+@media(max-width:680px){.app-shell{display:block}.sidebar{width:100%;padding:12px;display:block}.brand{padding:5px 8px 12px}.side-caption,.sidebar-bottom{display:none}.sidebar .nav-link{display:inline-flex;padding:8px;font-size:11px}.main-area{width:100%;padding:20px 13px}.topbar h1{font-size:20px}.stats{gap:9px}.card{padding:14px}.stat-value{font-size:18px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.table-scroll{overflow-x:auto}table{min-width:580px}}
+@media(max-width:680px){.app-shell{display:block}
+.sidebar{width:100%;padding:12px;display:block}
+.brand{padding:5px 8px 12px}
+.side-caption,.sidebar-bottom{display:none}
 @media(max-width:680px){
     .app-shell{display:block}
     .sidebar{width:100%;padding:12px;display:block}
@@ -185,6 +190,13 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 .category-list-card tbody tr:hover{background:#f8faff}
 .category-list-card td{vertical-align:middle;padding-top:14px;padding-bottom:14px}
 .category-list-card .actions form{margin:0}
+.goal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.goal-card{border:1px solid var(--line);border-radius:12px;padding:17px;min-width:0}
+.goal-card h3{font-size:15px;color:#243b5a;margin:0 0 5px}
+.goal-card .section-head{align-items:flex-start;gap:10px}
+.goal-card .actions form,.debt-layout .actions form{margin:0}
+.debt-stats{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:18px}
+.savings-layout,.debt-layout{align-items:start}
 .empty-state{min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 18px}
 .empty-state-icon{width:76px;height:76px;display:grid;place-items:center;border-radius:24px;background:#edf3ff;font-size:36px;margin-bottom:15px}
 .empty-state h3{margin:0 0 8px;color:#1b3454;font-size:17px}
@@ -192,14 +204,14 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 @media(max-width:680px){
     .category-icon{width:34px;height:34px;font-size:18px}
     .category-list-card td{padding:11px 7px}
+    .goal-grid{grid-template-columns:1fr}
+    .debt-stats{grid-template-columns:1fr 1fr}
 }
 
 
 /* =========================================
-   TRANG CAI DAT - ME & MONEY
+   TRANG CÀI ĐẶT - ME & MONEY
 ========================================= */
-
-/* GIỚI THIỆU */
 
 .settings-intro {
     margin-bottom: 24px;
@@ -268,9 +280,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     font-size: 14px;
 }
 
-/* =========================================
-   THANH GẠT DAYMODE - NIGHTMODE
-========================================= */
+/* THANH GẠT DAYMODE - NIGHTMODE */
 
 .theme-options {
     display: flex;
@@ -324,7 +334,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     color: #171717;
 }
 
-/* CHỮ DAYMODE */
+/* CHỮ DAY MODE */
 
 .theme-toggle .toggle-label {
     margin-left: 68px;
@@ -342,7 +352,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     display: none;
 }
 
-/* KHI CHUYỂN SANG NIGHTMODE */
+/* KHI CHUYỂN SANG NIGHT MODE */
 
 .theme-toggle.night {
     background: #222222;
@@ -355,7 +365,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     transform: translateX(152px);
 }
 
-/* CĂN GIỮA CHỮ NIGHTMODE */
+/* CĂN GIỮA CHỮ NIGHT MODE */
 
 .theme-toggle.night .toggle-label {
     position: absolute;
@@ -417,9 +427,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     }
 }
 
-/* =========================================
-   HÌNH NỀN
-========================================= */
+/* HÌNH NỀN */
 
 .wallpaper-grid {
     display: flex;
@@ -472,9 +480,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     background: #f2e7cf;
 }
 
-/* =========================================
-   TẢI ẢNH NỀN
-========================================= */
+/* TẢI ẢNH NỀN */
 
 .upload-area {
     display: flex;
@@ -521,9 +527,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     border: 2px solid #3568d4;
 }
 
-/* =========================================
-   NÚT KHÔI PHỤC CÀI ĐẶT
-========================================= */
+/* NÚT KHÔI PHỤC CÀI ĐẶT */
 
 #resetSettings {
     display: inline-flex;
@@ -559,9 +563,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     transform: scale(0.97);
 }
 
-/* =========================================
-   THÔNG BÁO
-========================================= */
+/* THÔNG BÁO */
 
 #settingsToast {
     position: fixed;
@@ -585,7 +587,6 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     visibility: visible;
     transform: translateY(0);
 }
-
 
   
 /* =========================================
@@ -818,4 +819,67 @@ body.dark-mode .panel label {
         right: 60px;
         font-size: 14px;
     }
+}
+
+/* Savings and debt module polish */
+.module-banner{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:164px;padding:26px 32px;margin-bottom:18px;border:1px solid #dce8fb;border-radius:18px;background:linear-gradient(115deg,#f1f6ff 0%,#f8fbff 54%,#eef8f5 100%)}
+.module-banner:after{content:"";position:absolute;width:230px;height:230px;border:1px solid rgba(70,112,184,.1);border-radius:50%;right:80px;top:-140px;box-shadow:0 0 0 24px rgba(70,112,184,.035),0 0 0 48px rgba(70,112,184,.025)}
+.module-banner-copy{position:relative;z-index:1;max-width:650px}
+.module-kicker{display:inline-block;color:#5478b7;font-size:10px;font-weight:800;letter-spacing:1.7px;margin-bottom:9px}
+.module-banner h2{margin:0;color:#1b3454;font-size:23px;line-height:1.35;letter-spacing:-.5px}
+.module-banner p{margin:8px 0 0;color:#718198;font-size:12px;line-height:1.7}
+.module-banner-mark{position:relative;z-index:1;display:grid;place-items:center;width:92px;height:92px;flex:0 0 92px;border-radius:27px;background:linear-gradient(145deg,#fff,#e5efff);color:#4c75c1;box-shadow:0 12px 28px rgba(56,92,153,.12);transform:rotate(4deg)}
+.module-banner-mark svg{width:39px;height:39px;stroke-width:1.6}
+.module-banner-mark span{position:absolute;right:12px;top:8px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#fff;color:#15966b;font-weight:800;box-shadow:0 3px 9px #183b6818}
+.debt-banner{margin-top:18px;background:linear-gradient(115deg,#fff5f3 0%,#fffaf7 53%,#f2f7ff 100%);border-color:#f1e3df}
+.debt-banner .module-kicker{color:#bb756d}
+.debt-banner .module-banner-mark{background:linear-gradient(145deg,#fff,#fff0e9);color:#ba776e}
+.module-stats{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:18px}
+.module-stat{position:relative;overflow:hidden;min-width:0;padding:18px 20px 16px 70px}
+.module-stat:after{content:"";position:absolute;width:100px;height:100px;border-radius:50%;right:-42px;top:-48px;background:rgba(74,114,181,.035)}
+.module-stat-icon{position:absolute;left:19px;top:20px;width:37px;height:37px;display:grid;place-items:center;border-radius:12px}
+.module-stat-icon svg{width:18px;height:18px;stroke-width:1.9}
+.module-stat-icon.mint{background:#e7f7f0;color:#16885f}
+.module-stat-icon.blue-soft{background:#edf3ff;color:#3568d4}
+.module-stat-icon.violet{background:#f1edff;color:#7c62c7}
+.module-stat-icon.rose{background:#fff0ed;color:#d66c63}
+.module-stat .stat-value{font-size:20px;margin:7px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.module-stat .stat-label{font-size:11px}
+.module-stat .stat-note{font-size:10px;line-height:1.5}
+.module-stat-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.module-stat-top .module-stat-icon{position:static;flex:0 0 37px}
+.module-progress-stat{padding-left:20px}
+.module-progress-stat .progress{margin:10px 0 7px}
+.debt-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+.debt-stat{min-height:113px}
+.goal-card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.goal-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(30,55,90,.08);border-color:#d7e3f6}
+.goal-card .progress{height:9px;background:#eef2f7}
+.goal-card .progress span{background:linear-gradient(90deg,#4f7de0,#55b99b)}
+.savings-layout>.card,.debt-layout>.card,.debt-layout+.card,.savings-layout+.card{box-shadow:0 8px 24px rgba(30,55,90,.045)}
+.savings-layout .section-head h2,.debt-layout .section-head h2{font-size:16px}
+.debt-layout+.card .table-scroll{border-radius:10px}
+.debt-layout+.card tbody tr:hover,.savings-layout~.card tbody tr:hover{background:#fafcff}
+.debt-layout+.card td,.savings-layout~.card td{padding-top:14px;padding-bottom:14px}
+@media(max-width:1000px){.module-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.module-progress-stat{grid-column:1/-1}}
+@media(max-width:680px){
+  .module-banner{min-height:140px;padding:22px 19px;border-radius:14px}
+  .module-banner h2{font-size:18px;max-width:390px}
+  .module-banner p{font-size:11px;max-width:340px}
+  .module-banner-mark{width:62px;height:62px;flex-basis:62px;border-radius:20px}
+  .module-banner-mark svg{width:28px;height:28px}
+  .module-banner-mark span{right:6px;top:4px;width:19px;height:19px;font-size:12px}
+  .module-stats{grid-template-columns:1fr 1fr}
+  .module-stat{padding:62px 13px 14px;min-height:143px}
+  .module-stat-icon{left:13px;top:13px}
+  .module-stat .stat-value{font-size:16px}
+  .module-stat .stat-note{font-size:9px}
+  .module-progress-stat{grid-column:1/-1;min-height:auto;padding:15px}
+  .module-progress-stat .module-stat-top .module-stat-icon{position:static}
+  .debt-stats{grid-template-columns:1fr 1fr}
+  .debt-stat{padding:62px 13px 14px}
+}
+.transaction-category{display:flex;align-items:center;gap:9px;min-width:145px}
+.transaction-category .category-icon{width:34px;height:34px;font-size:18px;border-radius:10px}
+.transaction-category strong{font-size:12px;color:#31445e}
 }

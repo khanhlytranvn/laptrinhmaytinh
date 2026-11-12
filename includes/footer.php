@@ -14,7 +14,7 @@ document.querySelectorAll('[data-confirm]').forEach(el => {
         }
     });
 });
-</script>
+
 
 
      GIAO DIỆN DÙNG CHUNG TOÀN WEBSITE
@@ -350,4 +350,3 @@ if (isDark) {
 
 </body>
 </html>
-

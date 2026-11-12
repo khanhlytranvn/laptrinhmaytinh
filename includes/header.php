@@ -21,15 +21,17 @@ unset($_SESSION['flash']);
 <div class="side-caption">TỔNG QUAN</div>
 <a href="index.php" class="nav-link"><i data-lucide="house"></i><span>Trang chủ</span></a>
 <div class="side-caption">QUẢN LÝ TÀI CHÍNH</div>
-<a href="transactions.php?type=income" class="nav-link"><i data-lucide="circle-arrow-down"></i><span>Khoản thu</span></a>
-<a href="transactions.php?type=expense" class="nav-link"><i data-lucide="circle-arrow-up"></i><span>Khoản chi</span></a>
+<a href="transactions.php?type=income" class="nav-link"><i data-lucide="circle-arrow-up"></i><span>Khoản thu</span></a>
+<a href="transactions.php?type=expense" class="nav-link"><i data-lucide="circle-arrow-down"></i><span>Khoản chi</span></a>
 <a href="categories.php" class="nav-link"><i data-lucide="tags"></i><span>Danh mục</span></a>
 <a href="budgets.php" class="nav-link"><i data-lucide="wallet"></i><span>Ngân sách</span></a>
+<a href="savings.php" class="nav-link"><i data-lucide="piggy-bank"></i><span>Tiết kiệm</span></a>
+<a href="debts.php" class="nav-link"><i data-lucide="hand-coins"></i><span>Theo dõi nợ</span></a>
 <a href="reports.php" class="nav-link"><i data-lucide="chart-column"></i><span>Báo cáo</span></a>
 <a href="settings.php" class="nav-link"><i data-lucide="settings"></i><span>Cài đặt</span></a> 
  <?php if (is_admin()): ?>
   <div class="side-caption">QUẢN TRỊ</div>
-  <a href="users.php" class="nav-link">♙ <span>Người dùng</span></a>
+  <a href="users.php" class="nav-link"><i data-lucide="user-round"></i><span>Người dùng</span></a>
   <?php endif; ?>
   <div class="sidebar-bottom">
     <div class="user-mini"><div class="avatar"><?= e(mb_substr($_SESSION['user']['full_name'],0,1)) ?></div>
