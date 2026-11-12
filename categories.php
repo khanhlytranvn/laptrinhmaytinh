@@ -8,23 +8,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){$action=$_POST['action']??'save';$id=(in
 $edit=null;if(isset($_GET['edit'])){$s=$pdo->prepare("SELECT * FROM categories WHERE id=? AND user_id=?");$s->execute([(int)$_GET['edit'],$uid]);$edit=$s->fetch();}
 $s=$pdo->prepare("SELECT c.*,COUNT(t.id) used_count FROM categories c LEFT JOIN transactions t ON t.category_id=c.id AND t.user_id=? WHERE c.user_id IS NULL OR c.user_id=? GROUP BY c.id ORDER BY c.type,c.name");$s->execute([$uid,$uid]);$rows=$s->fetchAll();
 $pageTitle='Quản lý danh mục';require 'includes/header.php';
-function category_icon($name, $type) {
-    $n = mb_strtolower(trim($name), 'UTF-8');
-    $icons = [
-        'ăn uống'=>'🍜', 'đồ ăn'=>'🍜', 'thực phẩm'=>'🥗',
-        'mua sắm'=>'🛍️', 'quần áo'=>'👕', 'di chuyển'=>'🚗',
-        'xăng xe'=>'⛽', 'học tập'=>'📚', 'giáo dục'=>'🎓',
-        'nhà cửa'=>'🏠', 'tiền nhà'=>'🏠', 'sức khỏe'=>'💊',
-        'y tế'=>'💊', 'giải trí'=>'🎮', 'du lịch'=>'✈️',
-        'lương'=>'💰', 'tiền lương'=>'💰', 'thưởng'=>'🎁',
-        'đầu tư'=>'📈', 'kinh doanh'=>'💼', 'quà tặng'=>'🎀',
-        'khác'=>'📦'
-    ];
-    foreach ($icons as $keyword => $icon) {
-        if (mb_strpos($n, $keyword, 0, 'UTF-8') !== false) return $icon;
-    }
-    return $type === 'income' ? '💵' : '📌';
-}
 ?>
 <div class="grid two-col"><section class="card form-card"><div class="section-head"><h2><?=$edit?'Sửa danh mục':'Tạo danh mục mới'?></h2></div><form method="post"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><input type="hidden" name="id" value="<?=e($edit['id']??'')?>"><div class="field"><label>Tên danh mục</label><input name="name" required value="<?=e($edit['name']??'')?>" placeholder="Ví dụ: Tiền thưởng"></div><div class="field" style="margin-top:14px"><label>Loại</label><select name="type"><option value="income" <?=($edit['type']??'')==='income'?'selected':''?>>Thu nhập</option><option value="expense" <?=($edit['type']??'expense')==='expense'?'selected':''?>>Chi tiêu</option></select></div><div class="form-actions"><button class="btn">Lưu danh mục</button><?php if($edit):?><a class="btn btn-light" href="categories.php">Hủy</a><?php endif;?></div></form></section>
 <section class="card category-list-card">
