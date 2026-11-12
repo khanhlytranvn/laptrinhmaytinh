@@ -193,3 +193,629 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     .category-icon{width:34px;height:34px;font-size:18px}
     .category-list-card td{padding:11px 7px}
 }
+
+
+/* =========================================
+   TRANG CAI DAT - ME & MONEY
+========================================= */
+
+/* GIỚI THIỆU */
+
+.settings-intro {
+    margin-bottom: 24px;
+}
+
+.settings-intro h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+    color: var(--navy, #17365d);
+}
+
+.settings-intro p {
+    color: #7b8494;
+    font-size: 14px;
+}
+
+/* KHUNG CÀI ĐẶT */
+
+.settings-card {
+    padding: 26px;
+    margin-bottom: 22px;
+    border-radius: 18px;
+    border: 1px solid #e9edf4;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(25, 45, 75, 0.04);
+}
+
+.settings-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.settings-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    flex: 0 0 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #3568d4;
+    border: none;
+}
+
+.settings-icon svg {
+    width: 23px;
+    height: 23px;
+}
+
+.settings-heading h2 {
+    font-size: 19px;
+    margin: 0 0 5px;
+    color: #17365d;
+}
+
+.settings-heading p {
+    margin: 0;
+    color: #8992a1;
+    font-size: 14px;
+}
+
+/* =========================================
+   THANH GẠT DAYMODE - NIGHTMODE
+========================================= */
+
+.theme-options {
+    display: flex;
+    align-items: center;
+}
+
+.theme-toggle {
+    position: relative;
+    width: 220px;
+    height: 68px;
+    min-width: 220px;
+    padding: 4px;
+    border: 3px solid #dedede;
+    border-radius: 50px;
+    background: #eeeeee;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: background 0.35s ease,
+                border-color 0.35s ease;
+}
+
+/* NÚT TRÒN */
+
+.theme-toggle .toggle-circle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease;
+    z-index: 2;
+}
+
+/* BIỂU TƯỢNG */
+
+.theme-toggle .toggle-circle svg {
+    width: 27px;
+    height: 27px;
+    color: #171717;
+}
+
+/* CHỮ DAYMODE */
+
+.theme-toggle .toggle-label {
+    margin-left: 68px;
+    margin-right: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #171717;
+    white-space: nowrap;
+    transition: all 0.4s ease;
+}
+
+/* ẨN BIỂU TƯỢNG MẶT TRĂNG */
+
+.theme-toggle .night-icon {
+    display: none;
+}
+
+/* KHI CHUYỂN SANG NIGHTMODE */
+
+.theme-toggle.night {
+    background: #222222;
+    border-color: #080808;
+}
+
+/* NÚT TRÒN TRƯỢT SANG PHẢI */
+
+.theme-toggle.night .toggle-circle {
+    transform: translateX(152px);
+}
+
+/* CĂN GIỮA CHỮ NIGHTMODE */
+
+.theme-toggle.night .toggle-label {
+    position: absolute;
+    left: 0;
+    right: 62px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    white-space: nowrap;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* ĐỔI BIỂU TƯỢNG */
+
+.theme-toggle.night .day-icon {
+    display: none;
+}
+
+.theme-toggle.night .night-icon {
+    display: block;
+}
+
+/* GIAO DIỆN MOBILE */
+
+@media (max-width: 600px) {
+
+    .theme-toggle {
+        width: 200px;
+        min-width: 200px;
+        height: 62px;
+    }
+
+    .theme-toggle .toggle-circle {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+    }
+
+    .theme-toggle.night .toggle-circle {
+        transform: translateX(138px);
+    }
+
+    .theme-toggle .toggle-label {
+        margin-left: 60px;
+        font-size: 14px;
+    }
+
+    .theme-toggle.night .toggle-label {
+        right: 60px;
+        font-size: 14px;
+    }
+}
+
+/* =========================================
+   HÌNH NỀN
+========================================= */
+
+.wallpaper-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+}
+
+.wallpaper-option {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.wallpaper-option:hover {
+    transform: scale(1.08);
+}
+
+.wallpaper-option.selected {
+    border-color: #3568d4;
+    box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.15);
+}
+
+.wallpaper-default {
+    background: #f4f6fa;
+}
+
+.wallpaper-blue {
+    background: #dceafa;
+}
+
+.wallpaper-green {
+    background: #dcebd8;
+}
+
+.wallpaper-pink {
+    background: #f8dfe5;
+}
+
+.wallpaper-lavender {
+    background: #e9e0f8;
+}
+
+.wallpaper-cream {
+    background: #f2e7cf;
+}
+
+/* =========================================
+   TẢI ẢNH NỀN
+========================================= */
+
+.upload-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.upload-button {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #17365d;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.upload-button:hover {
+    background: #3568d4;
+    transform: scale(1.05);
+}
+
+.upload-button svg {
+    width: 23px;
+    height: 23px;
+}
+
+#backgroundUpload {
+    display: none;
+}
+
+.image-preview {
+    display: none;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3568d4;
+}
+
+/* =========================================
+   NÚT KHÔI PHỤC CÀI ĐẶT
+========================================= */
+
+#resetSettings {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+    min-height: 46px;
+    background: #ffffff;
+    color: #526b8d;
+    border: 1px solid #dce3ed;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+#resetSettings svg {
+    width: 18px;
+    height: 18px;
+}
+
+#resetSettings:hover {
+    background: #f1f5fb;
+    border-color: #b9c9df;
+    color: #3568d4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(53, 104, 212, 0.08);
+}
+
+#resetSettings:active {
+    transform: scale(0.97);
+}
+
+/* =========================================
+   THÔNG BÁO
+========================================= */
+
+#settingsToast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    padding: 13px 20px;
+    border-radius: 10px;
+    background: #17365d;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+    z-index: 9999;
+}
+
+#settingsToast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+  
+/* =========================================
+   CHẾ ĐỘ SÁNG - TỐI TOÀN WEBSITE
+========================================= */
+
+/* HIỆU ỨNG CHUYỂN ĐỔI */
+
+body,
+.app-shell,
+.main-area,
+.topbar,
+.settings-card,
+.card,
+.panel,
+.top-date {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+}
+
+/* =========================================
+   CHẾ ĐỘ SÁNG
+========================================= */
+
+body:not(.dark-mode) {
+    background-color: #f4f6fa;
+    color: #26344a;
+}
+
+body:not(.dark-mode) .app-shell {
+    background-color: #f4f6fa;
+}
+
+body:not(.dark-mode) .main-area {
+    background-color: var(--selected-background, #f4f6fa);
+    color: #26344a;
+}
+
+body:not(.dark-mode) .topbar {
+    background-color: transparent;
+    color: #26344a;
+}
+
+body:not(.dark-mode) .topbar h1,
+body:not(.dark-mode) .topbar .eyebrow {
+    color: #26344a;
+}
+
+body:not(.dark-mode) .top-date {
+    background-color: #ffffff;
+    color: #52647c;
+    border: 1px solid #e9edf4;
+}
+
+body:not(.dark-mode) .settings-card,
+body:not(.dark-mode) .card,
+body:not(.dark-mode) .panel {
+    background-color: #ffffff;
+    color: #26344a;
+}
+
+/* =========================================
+   CHẾ ĐỘ TỐI
+========================================= */
+
+body.dark-mode {
+    background-color: #171c2b;
+    color: #e8edf5;
+}
+
+body.dark-mode .app-shell,
+body.dark-mode .main-area {
+    background-color: #171c2b;
+    color: #e8edf5;
+}
+
+body.dark-mode .topbar {
+    background-color: transparent;
+    color: #e8edf5;
+}
+
+body.dark-mode .topbar h1,
+body.dark-mode .topbar .eyebrow {
+    color: #e8edf5;
+}
+
+/* NGÀY THÁNG */
+
+body.dark-mode .top-date {
+    background-color: #252d40;
+    color: #e8edf5;
+    border: 1px solid #39445b;
+}
+
+/* KHUNG NỘI DUNG */
+
+body.dark-mode .settings-card,
+body.dark-mode .card,
+body.dark-mode .panel {
+    background-color: #252d40;
+    color: #e8edf5;
+    border-color: #39445b;
+}
+
+/* TIÊU ĐỀ VÀ NỘI DUNG CÀI ĐẶT */
+
+body.dark-mode .settings-heading h2,
+body.dark-mode .settings-intro h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .settings-heading p,
+body.dark-mode .settings-intro p {
+    color: #b0bacb;
+}
+
+/* ICON - BỎ THANH NỀN PHÍA SAU */
+
+body.dark-mode .settings-heading,
+body.dark-mode .settings-icon {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+body.dark-mode .settings-icon {
+    color: #b8d0ff;
+}
+
+/* NÚT TẢI ẢNH */
+
+body.dark-mode .upload-button {
+    background-color: #303b52;
+    color: #b8d0ff;
+    border-color: #647b9d;
+}
+
+body.dark-mode .upload-note {
+    color: #b0bacb;
+}
+
+/* BẢNG DỮ LIỆU */
+
+body.dark-mode table {
+    color: #e8edf5;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+    border-color: #39445b;
+}
+
+body.dark-mode tbody tr:hover {
+    background-color: #303b52;
+}
+
+/* Ô NHẬP LIỆU */
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #303b52;
+    color: #ffffff;
+    border-color: #53627d;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #aab5c8;
+}
+
+/* THÔNG BÁO */
+
+body.dark-mode .settings-toast,
+body.dark-mode #settingsToast {
+    background-color: #40577c;
+    color: #ffffff;
+}
+
+/* =========================================
+   ĐỒNG BỘ GIAO DIỆN NIGHT MODE
+========================================= */
+
+body.dark-mode .card h2,
+body.dark-mode .card h3,
+body.dark-mode .panel h2,
+body.dark-mode .panel h3,
+body.dark-mode .card label,
+body.dark-mode .panel label {
+    color: #e8edf5;
+}
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .settings-card {
+        padding: 18px;
+    }
+
+    .wallpaper-grid {
+        gap: 12px;
+    }
+
+    .theme-toggle {
+        width: 200px;
+        min-width: 200px;
+        height: 62px;
+    }
+
+    .theme-toggle .toggle-circle {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+    }
+
+    .theme-toggle.night .toggle-circle {
+        transform: translateX(138px);
+    }
+
+    .theme-toggle .toggle-label {
+        font-size: 14px;
+        margin-left: 60px;
+    }
+
+    .theme-toggle.night .toggle-label {
+        right: 60px;
+        font-size: 14px;
+    }
+}
