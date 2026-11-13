@@ -207,10 +207,11 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     .goal-grid{grid-template-columns:1fr}
     .debt-stats{grid-template-columns:1fr 1fr}
 }
+}
 
 
 /* =========================================
-   TRANG CÀI ĐẶT - ME & MONEY
+   TRANG CAI DAT - ME & MONEY
 ========================================= */
 
 .settings-intro {
@@ -228,7 +229,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     font-size: 14px;
 }
 
-/* KHUNG CÀI ĐẶT */
+/* KHUNG CAI DAT */
 
 .settings-card {
     padding: 26px;
@@ -280,7 +281,9 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     font-size: 14px;
 }
 
-/* THANH GẠT DAYMODE - NIGHTMODE */
+/* =========================================
+   DAYMODE - NIGHTMODE
+========================================= */
 
 .theme-options {
     display: flex;
@@ -290,8 +293,8 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 .theme-toggle {
     position: relative;
     width: 220px;
-    height: 68px;
     min-width: 220px;
+    height: 68px;
     padding: 4px;
     border: 3px solid #dedede;
     border-radius: 50px;
@@ -305,7 +308,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
                 border-color 0.35s ease;
 }
 
-/* NÚT TRÒN */
+/* NUT TRON */
 
 .theme-toggle .toggle-circle {
     position: absolute;
@@ -326,7 +329,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     z-index: 2;
 }
 
-/* BIỂU TƯỢNG */
+/* BIEU TUONG */
 
 .theme-toggle .toggle-circle svg {
     width: 27px;
@@ -334,59 +337,68 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     color: #171717;
 }
 
-/* CHỮ DAY MODE */
+/* CHU DAYMODE */
 
 .theme-toggle .toggle-label {
-    margin-left: 68px;
-    margin-right: 0;
+    position: absolute;
+    top: 50%;
+    left: 138px;
+    width: max-content;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    transform: translate(-50%, -50%);
     font-size: 16px;
     font-weight: 800;
     color: #171717;
     white-space: nowrap;
-    transition: all 0.4s ease;
+    transition: left 0.4s ease,
+                color 0.35s ease;
+    z-index: 1;
+    pointer-events: none;
 }
 
-/* ẨN BIỂU TƯỢNG MẶT TRĂNG */
+/* AN BIEU TUONG MAT TRANG */
+
+.theme-toggle .day-icon {
+    display: block;
+}
 
 .theme-toggle .night-icon {
     display: none;
 }
 
-/* KHI CHUYỂN SANG NIGHT MODE */
+/* =========================================
+   NIGHTMODE
+========================================= */
 
 .theme-toggle.night {
     background: #222222;
     border-color: #080808;
 }
 
-/* NÚT TRÒN TRƯỢT SANG PHẢI */
+/* NUT TRON TRUOT SANG PHAI */
 
 .theme-toggle.night .toggle-circle {
     transform: translateX(152px);
 }
 
-/* CĂN GIỮA CHỮ NIGHT MODE */
+/* CAN GIUA CHU NIGHTMODE */
 
 .theme-toggle.night .toggle-label {
     position: absolute;
-    left: 0;
-    right: 62px;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 50%;
+    left: 69px;
+    right: auto;
+    width: max-content;
+    height: auto;
+    display: block;
     margin: 0;
     padding: 0;
-    color: white;
-    font-size: 16px;
-    font-weight: 800;
-    white-space: nowrap;
-    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
     z-index: 1;
 }
-
-/* ĐỔI BIỂU TƯỢNG */
 
 .theme-toggle.night .day-icon {
     display: none;
@@ -396,38 +408,9 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     display: block;
 }
 
-/* GIAO DIỆN MOBILE */
-
-@media (max-width: 600px) {
-
-    .theme-toggle {
-        width: 200px;
-        min-width: 200px;
-        height: 62px;
-    }
-
-    .theme-toggle .toggle-circle {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-    }
-
-    .theme-toggle.night .toggle-circle {
-        transform: translateX(138px);
-    }
-
-    .theme-toggle .toggle-label {
-        margin-left: 60px;
-        font-size: 14px;
-    }
-
-    .theme-toggle.night .toggle-label {
-        right: 60px;
-        font-size: 14px;
-    }
-}
-
-/* HÌNH NỀN */
+/* =========================================
+   CAC O MAU NEN
+========================================= */
 
 .wallpaper-grid {
     display: flex;
@@ -437,12 +420,14 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 }
 
 .wallpaper-option {
+    flex: 0 0 52px;
     width: 52px;
     height: 52px;
-    min-width: 52px;
-    border-radius: 50%;
+    padding: 0;
     border: 3px solid transparent;
+    border-radius: 50%;
     cursor: pointer;
+    box-sizing: border-box;
     transition: transform 0.2s ease,
                 border-color 0.2s ease;
 }
@@ -455,6 +440,8 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     border-color: #3568d4;
     box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.15);
 }
+
+/* MAU NEN */
 
 .wallpaper-default {
     background: #f4f6fa;
@@ -480,7 +467,9 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     background: #f2e7cf;
 }
 
-/* TẢI ẢNH NỀN */
+/* =========================================
+   TAI ANH NEN
+========================================= */
 
 .upload-area {
     display: flex;
@@ -493,14 +482,16 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     width: 52px;
     height: 52px;
     min-width: 52px;
+    padding: 0;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #17365d;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
 }
 
 .upload-button:hover {
@@ -527,7 +518,9 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     border: 2px solid #3568d4;
 }
 
-/* NÚT KHÔI PHỤC CÀI ĐẶT */
+/* =========================================
+   KHOI PHUC CAI DAT
+========================================= */
 
 #resetSettings {
     display: inline-flex;
@@ -556,14 +549,11 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     border-color: #b9c9df;
     color: #3568d4;
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(53, 104, 212, 0.08);
 }
 
-#resetSettings:active {
-    transform: scale(0.97);
-}
-
-/* THÔNG BÁO */
+/* =========================================
+   THONG BAO
+========================================= */
 
 #settingsToast {
     position: fixed;
@@ -572,13 +562,13 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     padding: 13px 20px;
     border-radius: 10px;
     background: #17365d;
-    color: white;
+    color: #ffffff;
     font-size: 14px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 9999;
 }
 
@@ -588,12 +578,55 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     transform: translateY(0);
 }
 
-  
 /* =========================================
-   CHẾ ĐỘ SÁNG - TỐI TOÀN WEBSITE
+   RESPONSIVE MOBILE
 ========================================= */
 
-/* HIỆU ỨNG CHUYỂN ĐỔI */
+@media (max-width: 600px) {
+    .theme-toggle {
+        width: 200px;
+        min-width: 200px;
+        height: 62px;
+    }
+
+    .theme-toggle .toggle-circle {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+    }
+
+    .theme-toggle.night .toggle-circle {
+        transform: translateX(138px);
+    }
+
+    .theme-toggle .toggle-label {
+        top: 50%;
+        left: 125px;
+        right: auto;
+        width: max-content;
+        margin: 0;
+        padding: 0;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+    }
+
+    .theme-toggle.night .toggle-label {
+        top: 50%;
+        left: 63px;
+        right: auto;
+        width: max-content;
+        margin: 0;
+        padding: 0;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+    }
+}
+
+/* =========================================
+   CHE DO SANG TOI TOAN WEBSITE
+========================================= */
+
+/* HIEU UNG CHUYEN DOI */
 
 body,
 .app-shell,
@@ -609,8 +642,12 @@ body,
 }
 
 /* =========================================
-   CHẾ ĐỘ SÁNG
+   CHE DO SANG
 ========================================= */
+
+:root {
+    --selected-background: #f4f6fa;
+}
 
 body:not(.dark-mode) {
     background-color: #f4f6fa;
@@ -650,7 +687,7 @@ body:not(.dark-mode) .panel {
 }
 
 /* =========================================
-   CHẾ ĐỘ TỐI
+   CHE DO TOI
 ========================================= */
 
 body.dark-mode {
@@ -674,7 +711,7 @@ body.dark-mode .topbar .eyebrow {
     color: #e8edf5;
 }
 
-/* NGÀY THÁNG */
+/* NGAY THANG */
 
 body.dark-mode .top-date {
     background-color: #252d40;
@@ -682,7 +719,7 @@ body.dark-mode .top-date {
     border: 1px solid #39445b;
 }
 
-/* KHUNG NỘI DUNG */
+/* KHUNG NOI DUNG */
 
 body.dark-mode .settings-card,
 body.dark-mode .card,
@@ -692,7 +729,7 @@ body.dark-mode .panel {
     border-color: #39445b;
 }
 
-/* TIÊU ĐỀ VÀ NỘI DUNG CÀI ĐẶT */
+/* TIEU DE VA NOI DUNG CAI DAT */
 
 body.dark-mode .settings-heading h2,
 body.dark-mode .settings-intro h2 {
@@ -704,7 +741,7 @@ body.dark-mode .settings-intro p {
     color: #b0bacb;
 }
 
-/* ICON - BỎ THANH NỀN PHÍA SAU */
+/* ICON */
 
 body.dark-mode .settings-heading,
 body.dark-mode .settings-icon {
@@ -717,7 +754,7 @@ body.dark-mode .settings-icon {
     color: #b8d0ff;
 }
 
-/* NÚT TẢI ẢNH */
+/* NUT TAI ANH */
 
 body.dark-mode .upload-button {
     background-color: #303b52;
@@ -729,7 +766,7 @@ body.dark-mode .upload-note {
     color: #b0bacb;
 }
 
-/* BẢNG DỮ LIỆU */
+/* BANG DU LIEU */
 
 body.dark-mode table {
     color: #e8edf5;
@@ -744,7 +781,7 @@ body.dark-mode tbody tr:hover {
     background-color: #303b52;
 }
 
-/* Ô NHẬP LIỆU */
+/* O NHAP LIEU */
 
 body.dark-mode input,
 body.dark-mode select,
@@ -759,7 +796,7 @@ body.dark-mode textarea::placeholder {
     color: #aab5c8;
 }
 
-/* THÔNG BÁO */
+/* THONG BAO */
 
 body.dark-mode .settings-toast,
 body.dark-mode #settingsToast {
@@ -768,7 +805,7 @@ body.dark-mode #settingsToast {
 }
 
 /* =========================================
-   ĐỒNG BỘ GIAO DIỆN NIGHT MODE
+   DONG BO GIAO DIEN NIGHTMODE
 ========================================= */
 
 body.dark-mode .card h2,
@@ -781,43 +818,90 @@ body.dark-mode .panel label {
 }
 
 /* =========================================
-   RESPONSIVE - MOBILE
+   DONG BO MAU NEN VA CHE DO SANG TOI
 ========================================= */
 
+body:not(.dark-mode) .main-area {
+    background-color: var(--selected-background, #f4f6fa);
+}
+
+body.dark-mode .main-area {
+    background-color: #171c2b;
+}
+
+/* KHUNG CAI DAT CHUYEN MAU MUOT */
+
+.settings-card {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* =========================================
+   SIDEBAR - NIGHTMODE
+========================================= */
+
+body.dark-mode .sidebar {
+    background-color: #20283a;
+    color: #e8edf5;
+    border-color: #39445b;
+}
+
+body.dark-mode .sidebar a,
+body.dark-mode .sidebar span,
+body.dark-mode .sidebar strong {
+    color: #e8edf5;
+}
+
+body.dark-mode .side-caption,
+body.dark-mode .sidebar small {
+    color: #aab6ca;
+}
+
+/* NOI DUNG TRONG NIGHTMODE */
+
+body.dark-mode .main-area h1,
+body.dark-mode .main-area h2,
+body.dark-mode .main-area h3,
+body.dark-mode .main-area h4,
+body.dark-mode .main-area p,
+body.dark-mode .main-area label,
+body.dark-mode .main-area th,
+body.dark-mode .main-area td,
+body.dark-mode .main-area .eyebrow {
+    color: #e8edf5;
+}
+
+/* CAC KHUNG THONG KE */
+
+body.dark-mode .stat-card,
+body.dark-mode .summary-card,
+body.dark-mode .content-card,
+body.dark-mode .table-card {
+    background-color: #252d40;
+    color: #e8edf5;
+    border-color: #39445b;
+}
+
+/* HIEU UNG CHUYEN MAU */
+
+.sidebar,
+.stat-card,
+.summary-card,
+.content-card,
+.table-card {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* RESPONSIVE */
+
 @media (max-width: 600px) {
-
-    .settings-card {
-        padding: 18px;
-    }
-
-    .wallpaper-grid {
-        gap: 12px;
-    }
-
-    .theme-toggle {
-        width: 200px;
-        min-width: 200px;
-        height: 62px;
-    }
-
-    .theme-toggle .toggle-circle {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-    }
-
-    .theme-toggle.night .toggle-circle {
-        transform: translateX(138px);
-    }
-
-    .theme-toggle .toggle-label {
-        font-size: 14px;
-        margin-left: 60px;
-    }
-
-    .theme-toggle.night .toggle-label {
-        right: 60px;
-        font-size: 14px;
+    .main-area {
+        min-width: 0;
     }
 }
 
@@ -882,4 +966,3 @@ body.dark-mode .panel label {
 .transaction-category{display:flex;align-items:center;gap:9px;min-width:145px}
 .transaction-category .category-icon{width:34px;height:34px;font-size:18px;border-radius:10px}
 .transaction-category strong{font-size:12px;color:#31445e}
-}
