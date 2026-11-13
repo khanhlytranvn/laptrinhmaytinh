@@ -28,8 +28,7 @@ unset($_SESSION['flash']);
 <a href="savings.php" class="nav-link"><i data-lucide="piggy-bank"></i><span>Tiết kiệm</span></a>
 <a href="debts.php" class="nav-link"><i data-lucide="hand-coins"></i><span>Theo dõi nợ</span></a>
 <a href="reports.php" class="nav-link"><i data-lucide="chart-column"></i><span>Báo cáo</span></a>
-<a href="settings.php" class="nav-link"><i data-lucide="settings"></i><span>Cài đặt</span></a> 
- <?php if (is_admin()): ?>
+  <?php if (is_admin()): ?>
   <div class="side-caption">QUẢN TRỊ</div>
   <a href="users.php" class="nav-link"><i data-lucide="user-round"></i><span>Người dùng</span></a>
   <?php endif; ?>
