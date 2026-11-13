@@ -183,7 +183,7 @@ require 'includes/header.php';
     <div class="card stat-card">
         <div class="stat-top">
             <span class="stat-label">Số dư tháng này</span>
-            <span class="stat-icon">◈</span>
+            <span class="stat-icon"><i data-lucide="badge-dollar-sign"></i></span>
         </div>
 
         <div class="stat-value <?= $balance >= 0 ? 'blue' : 'red' ?>">
@@ -198,7 +198,7 @@ require 'includes/header.php';
     <div class="card stat-card">
         <div class="stat-top">
             <span class="stat-label">Ngân sách đã thiết lập</span>
-            <span class="stat-icon">▤</span>
+            <span class="stat-icon"><i data-lucide="wallet"></i></span>
         </div>
 
         <div class="stat-value">
@@ -256,8 +256,8 @@ require 'includes/header.php';
         <div class="section-head">
             <div>
                 <h2>Theo dõi ngân sách</h2>
-                <p class="section-description">
-                    Tình hình sử dụng ngân sách tháng này
+                <p class="section-description" style="font-size: 14px !important;">
+                    Tình hình sử dụng ngân sách tháng này 
                 </p>
             </div>
 
@@ -300,33 +300,45 @@ require 'includes/header.php';
                 <div class="budget-row">
 
                     <div class="budget-meta">
-                        <strong><?= e($b['name']) ?></strong>
+    <div class="category-name">
+        <span class="category-icon expense">
+            <?= e(category_icon($b['name'], 'expense')) ?>
+        </span>
+        <strong><?= e($b['name']) ?></strong>
+    </div>
 
-                        <span>
-                            <?= money($spent) ?>
-                            /
-                            <?= money($amount) ?>
-                        </span>
-                    </div>
+    <span>
+        <?= money($spent) ?>
+        /
+        <?= money($amount) ?>
+    </span>
+</div>
 
                     <div class="progress <?= $status ?>">
                         <span style="width:<?= min(100, $pct) ?>%"></span>
                     </div>
 
-                    <div class="budget-status <?= $status ?>">
-                        <?php if ($status === 'over'): ?>
+                    <div class="budget-status <?= $status ?>" style="font-size: 13px !important; olor: #6B7280 !important;">
+                       <?php if ($status === 'over'): ?>
 
                             Đã vượt ngân sách
-                            <?= money($spent - $amount) ?>
+                            <span style="font-size: 12px;">
+                                <?= money($spent - $amount) ?>
+                            </span>
 
                         <?php elseif ($status === 'warning'): ?>
 
                             Sắp vượt ngân sách –
-                            <?= number_format($pct, 1) ?>% đã sử dụng
+                            <span style="font-size: 12px;">
+                                <?= number_format($pct, 1) ?>%
+                            </span>
+                            đã sử dụng
 
                         <?php else: ?>
 
-                            <?= number_format($pct, 1) ?>%
+                            <span style="font-size: 12px;">
+                                <?= number_format($pct, 1) ?>%
+                            </span>
                             ngân sách đã sử dụng
 
                         <?php endif; ?>
@@ -402,8 +414,16 @@ require 'includes/header.php';
                             </td>
 
                             <td>
-                                <?= e($t['category_name']) ?>
-                            </td>
+    <div class="category-name">
+        <span class="category-icon <?=e($t['type'])?>">
+            <?=e(category_icon($t['category_name'], $t['type']))?>
+        </span>
+
+        <strong>
+            <?=e($t['category_name'])?>
+        </strong>
+    </div>
+</td>
 
                             <td class="<?= $t['type'] === 'income' ? 'green' : 'red' ?>">
                                 <strong>

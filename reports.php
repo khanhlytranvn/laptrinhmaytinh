@@ -1,10 +1,210 @@
+
 <?php
-require 'config.php';require 'includes/functions.php';require_login();$uid=current_user_id();$month=$_GET['month']??date('Y-m');
-$s=$pdo->prepare("SELECT type,SUM(amount) total FROM transactions WHERE user_id=? AND DATE_FORMAT(transaction_date,'%Y-%m')=? GROUP BY type");$s->execute([$uid,$month]);$sum=['income'=>0,'expense'=>0];foreach($s as $r)$sum[$r['type']]=(float)$r['total'];
-$s=$pdo->prepare("SELECT c.name,t.type,SUM(t.amount) total,COUNT(*) count_rows FROM transactions t JOIN categories c ON c.id=t.category_id WHERE t.user_id=? AND DATE_FORMAT(t.transaction_date,'%Y-%m')=? GROUP BY c.id,t.type ORDER BY t.type,c.name");$s->execute([$uid,$month]);$rows=$s->fetchAll();
-if(isset($_GET['export'])){$s=$pdo->prepare("SELECT t.transaction_date,t.type,c.name,t.amount,t.note FROM transactions t JOIN categories c ON c.id=t.category_id WHERE t.user_id=? AND DATE_FORMAT(t.transaction_date,'%Y-%m')=? ORDER BY t.transaction_date");$s->execute([$uid,$month]);header('Content-Type: text/csv; charset=utf-8');header('Content-Disposition: attachment; filename="bao-cao-thu-chi-'.$month.'.csv"');$out=fopen('php://output','w');fwrite($out,"\xEF\xBB\xBF");fputcsv($out,['Ngày','Loại','Danh mục','Số tiền (VND)','Ghi chú']);while($r=$s->fetch())fputcsv($out,[$r['transaction_date'],$r['type']==='income'?'Thu nhập':'Chi tiêu',$r['name'],$r['amount'],$r['note']]);fclose($out);exit;}
-$pageTitle='Báo cáo tài chính';require 'includes/header.php';?>
-<section class="card"><div class="section-head"><h2>Báo cáo theo tháng</h2><a class="btn" href="?month=<?=e($month)?>&export=1">↓ Xuất CSV / Excel</a></div><form class="filter"><div class="field"><label>Tháng báo cáo</label><input type="month" name="month" value="<?=e($month)?>"></div><button class="btn btn-light">Xem báo cáo</button></form>
-<div class="grid stats"><div class="card"><div class="stat-label">Tổng thu</div><div class="stat-value green"><?=money($sum['income'])?></div></div><div class="card"><div class="stat-label">Tổng chi</div><div class="stat-value red"><?=money($sum['expense'])?></div></div><div class="card"><div class="stat-label">Số dư</div><div class="stat-value"><?=money($sum['income']-$sum['expense'])?></div></div><div class="card"><div class="stat-label">Tỷ lệ chi / thu</div><div class="stat-value"><?= $sum['income']>0?number_format($sum['expense']/$sum['income']*100,1).'%' :'—'?></div></div></div>
-<div class="table-scroll"><table><thead><tr><th>LOẠI</th><th>DANH MỤC</th><th>SỐ GIAO DỊCH</th><th>TỔNG TIỀN</th></tr></thead><tbody><?php if(!$rows):?><tr><td colspan="4" class="empty">Chưa có dữ liệu trong tháng này.</td></tr><?php else:foreach($rows as $r):?><tr><td><?=$r['type']==='income'?'Thu nhập':'Chi tiêu'?></td><td><?=e($r['name'])?></td><td><?=$r['count_rows']?></td><td><strong><?=money($r['total'])?></strong></td></tr><?php endforeach;endif;?></tbody></table></div></section>
-<?php require 'includes/footer.php';?>
+require 'config.php';
+require 'includes/functions.php';
+require_login();
+
+$uid = current_user_id();
+$month = $_GET['month'] ?? date('Y-m');
+
+// Thống kê tổng thu và tổng chi
+$s = $pdo->prepare("
+    SELECT type, SUM(amount) total
+    FROM transactions
+    WHERE user_id=?
+    AND DATE_FORMAT(transaction_date,'%Y-%m')=?
+    GROUP BY type
+");
+$s->execute([$uid, $month]);
+
+$sum = [
+    'income' => 0,
+    'expense' => 0
+];
+
+foreach ($s as $r) {
+    $sum[$r['type']] = (float)$r['total'];
+}
+
+// Thống kê theo danh mục
+$s = $pdo->prepare("
+    SELECT
+        c.name,
+        t.type,
+        SUM(t.amount) total,
+        COUNT(*) count_rows
+    FROM transactions t
+    JOIN categories c ON c.id=t.category_id
+    WHERE t.user_id=?
+    AND DATE_FORMAT(t.transaction_date,'%Y-%m')=?
+    GROUP BY c.id, t.type
+    ORDER BY t.type, c.name
+");
+$s->execute([$uid, $month]);
+$rows = $s->fetchAll();
+
+// Xuất báo cáo CSV / Excel
+if (isset($_GET['export'])) {
+    $s = $pdo->prepare("
+        SELECT
+            t.transaction_date,
+            t.type,
+            c.name,
+            t.amount,
+            t.note
+        FROM transactions t
+        JOIN categories c ON c.id=t.category_id
+        WHERE t.user_id=?
+        AND DATE_FORMAT(t.transaction_date,'%Y-%m')=?
+        ORDER BY t.transaction_date
+    ");
+
+    $s->execute([$uid, $month]);
+
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="bao-cao-thu-chi-'.$month.'.csv"');
+
+    $out = fopen('php://output', 'w');
+    fwrite($out, "\xEF\xBB\xBF");
+
+    fputcsv($out, [
+        'Ngày',
+        'Loại',
+        'Danh mục',
+        'Số tiền (VND)',
+        'Ghi chú'
+    ]);
+
+    while ($r = $s->fetch()) {
+        fputcsv($out, [
+            $r['transaction_date'],
+            $r['type'] === 'income' ? 'Thu nhập' : 'Chi tiêu',
+            $r['name'],
+            $r['amount'],
+            $r['note']
+        ]);
+    }
+
+    fclose($out);
+    exit;
+}
+
+$pageTitle = 'Báo cáo tài chính';
+require 'includes/header.php';
+?>
+
+<section class="card">
+
+    <div class="section-head">
+        <h2>Báo cáo theo tháng</h2>
+
+        <a class="btn" href="?month=<?=e($month)?>&export=1">
+            ↓ Xuất CSV / Excel
+        </a>
+    </div>
+
+    <form class="filter">
+        <div class="field">
+            <label>Tháng báo cáo</label>
+            <input
+                type="month"
+                name="month"
+                value="<?=e($month)?>"
+            >
+        </div>
+
+        <button class="btn btn-light">Xem báo cáo</button>
+    </form>
+
+    <div class="grid stats">
+
+        <div class="card">
+            <div class="stat-label">Tổng thu</div>
+            <div class="stat-value green">
+                <?=money($sum['income'])?>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="stat-label">Tổng chi</div>
+            <div class="stat-value red">
+                <?=money($sum['expense'])?>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="stat-label">Số dư</div>
+            <div class="stat-value">
+                <?=money($sum['income'] - $sum['expense'])?>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="stat-label">Tỷ lệ chi / thu</div>
+            <div class="stat-value">
+                <?=$sum['income'] > 0
+                    ? number_format($sum['expense'] / $sum['income'] * 100, 1) . '%'
+                    : '—'?>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>LOẠI</th>
+                    <th>DANH MỤC</th>
+                    <th>SỐ GIAO DỊCH</th>
+                    <th>TỔNG TIỀN</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if (!$rows): ?>
+
+                    <tr>
+                        <td colspan="4" class="empty">
+                            Chưa có dữ liệu trong tháng này.
+                        </td>
+                    </tr>
+
+                <?php else: ?>
+
+                    <?php foreach ($rows as $r): ?>
+
+                        <tr>
+                            <td>
+                                <?=$r['type'] === 'income' ? 'Thu nhập' : 'Chi tiêu'?>
+                            </td>
+
+                            <td>
+                                <div class="category-name">
+                                    <span class="category-icon <?=$r['type']?>">
+                                        <?=e(category_icon($r['name'], $r['type']))?>
+                                    </span>
+
+                                    <strong><?=e($r['name'])?></strong>
+                                </div>
+                            </td>
+
+                            <td>
+                                <?=$r['count_rows']?>
+                            </td>
+
+                            <td>
+                                <strong><?=money($r['total'])?></strong>
+                            </td>
+                        </tr>
+
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+<?php require 'includes/footer.php'; ?>
