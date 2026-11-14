@@ -267,7 +267,6 @@ require 'includes/header.php';
     wallpaperButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             applyBackground(this.dataset.bg);
-            showToast('Đã cập nhật hình nền.');
         });
     });
 
@@ -309,7 +308,6 @@ require 'includes/header.php';
                     }
 
                     renderBackground();
-                    showToast('Đã cập nhật ảnh nền.');
                 } catch (error) {
                     showToast('Không thể lưu ảnh. Có thể dung lượng lưu trữ đã đầy.');
                 }
@@ -341,7 +339,6 @@ require 'includes/header.php';
             applyTheme('light');
             applyBackground('default');
 
-            showToast('Đã khôi phục cài đặt mặc định.');
         });
     }
 
