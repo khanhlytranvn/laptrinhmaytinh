@@ -1,11 +1,17 @@
+
 </main>
 </div>
 
+<!-- THU VIEN ICON -->
 <script src="https://unpkg.com/lucide@latest"></script>
+
 <script>
+if (window.lucide) {
     lucide.createIcons();
+}
 </script>
 
+<!-- XAC NHAN THAO TAC -->
 <script>
 document.querySelectorAll('[data-confirm]').forEach(el => {
     el.addEventListener('click', e => {
@@ -14,131 +20,15 @@ document.querySelectorAll('[data-confirm]').forEach(el => {
         }
     });
 });
+</script>
 
-
-
-     GIAO DIỆN DÙNG CHUNG TOÀN WEBSITE
-
-<style>
-
-THANH TIÊU ĐỀ 
-
-.topbar {
-    background: transparent ;
-    box-shadow: none ;
-}
-
-NIGHT MODE - NỀN CHUNG 
-
-body.dark-mode {
-    background-color: #171c2b ;
-    color: #e8edf5 ;
-}
-
-body.dark-mode .app-shell {
-    background-color: #171c2b ;
-}
-
-body.dark-mode .main-area {
-    background-color: #171c2b ;
-    color: #e8edf5 ;
-}
-
-body.dark-mode .topbar {
-    background: transparent ;
-    color: #e8edf5 ;
-}
-
- SIDEBAR 
-
-body.dark-mode .sidebar {
-    background-color: #20283a ;
-    color: #e8edf5 ;
-    border-color: #39445b ;
-}
-
-body.dark-mode .sidebar a,
-body.dark-mode .sidebar span,
-body.dark-mode .sidebar strong {
-    color: #e8edf5;
-}
-
-body.dark-mode .side-caption,
-body.dark-mode .sidebar small {
-    color: #aab6ca ;
-}
-
-TIÊU ĐỀ VÀ NỘI DUNG 
-
-body.dark-mode .main-area h1,
-body.dark-mode .main-area h2,
-body.dark-mode .main-area h3,
-body.dark-mode .main-area h4,
-body.dark-mode .main-area p,
-body.dark-mode .main-area label,
-body.dark-mode .main-area th,
-body.dark-mode .main-area td,
-body.dark-mode .main-area .eyebrow {
-    color: #e8edf5;
-}
-
-body.dark-mode .topbar h1,
-body.dark-mode .topbar .eyebrow {
-    color: #e8edf5 ;
-}
-
- CÁC KHUNG NỘI DUNG 
-
-body.dark-mode .card,
-body.dark-mode .panel,
-body.dark-mode .settings-card,
-body.dark-mode .stat-card,
-body.dark-mode .summary-card,
-body.dark-mode .content-card,
-body.dark-mode .table-card {
-    background-color: #252d40 ;
-    color: #e8edf5 ;
-    border-color: #39445b ;
-}
-
- Ô NHẬP LIỆU 
-
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea {
-    background-color: #20283a ;
-    color: #e8edf5 ;
-    border-color: #46536d ;
-}
-
-body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder {
-    color: #9ba9bf ;
-}
-
- NGÀY THÁNG 
-
-body.dark-mode .top-date {
-    background-color: #252d40 ;
-    color: #e8edf5 ;
-    border-color: #39445b ;
-}
-
- BẢNG 
-
-body.dark-mode table {
-    color: #e8edf5 ;
-}
-
-body.dark-mode th,
-body.dark-mode td {
-    border-color: #39445b ;
-}
-
-</style>
+<!-- =========================================
+     DONG BO GIAO DIEN TOAN WEBSITE
+========================================= -->
 
 <script>
 (function () {
+    'use strict';
 
     const colors = {
         default: '#f4f6fa',
@@ -150,7 +40,6 @@ body.dark-mode td {
     };
 
     function applySharedTheme() {
-
         const theme =
             localStorage.getItem('meMoneyTheme') || 'light';
 
@@ -165,7 +54,10 @@ body.dark-mode td {
         const mainArea =
             document.querySelector('.main-area');
 
-        // ÁP DỤNG CHẾ ĐỘ SÁNG / TỐI
+        const selectedColor =
+            colors[background] || colors.default;
+
+        // DONG BO CHE DO SANG TOI
 
         document.documentElement.classList.toggle(
             'dark-mode',
@@ -177,171 +69,93 @@ body.dark-mode td {
             isDark
         );
 
-        document.documentElement.style.colorScheme = theme;
+        document.documentElement.style.colorScheme =
+            isDark ? 'dark' : 'light';
 
-        // NIGHT MODE LUÔN ƯU TIÊN
+        // DONG BO MAU NEN
 
-if (isDark) {
-
-    document.body.style.setProperty(
-        'background-color',
-        '#171c2b',
-        'important'
-    );
-
-    if (background === 'custom' && customImage) {
-
-        const imageUrl = 'url("' + customImage + '")';
-
-        const darkOverlay =
-            'linear-gradient(rgba(15, 20, 35, 0.48), rgba(15, 20, 35, 0.48)), ' + imageUrl;
-
-        document.body.style.setProperty(
-            'background-image',
-            darkOverlay,
-            'important'
+        document.documentElement.style.setProperty(
+            '--selected-background',
+            selectedColor
         );
 
-        document.body.style.setProperty(
-            'background-size',
-            'cover',
-            'important'
-        );
+        // XOA ANH NEN CU
 
-        document.body.style.setProperty(
-            'background-position',
-            'center',
-            'important'
-        );
+        const targets = [
+            document.body,
+            mainArea
+        ].filter(Boolean);
 
-        document.body.style.setProperty(
-            'background-attachment',
-            'fixed',
-            'important'
-        );
+        targets.forEach(element => {
+            element.style.removeProperty('background-image');
+            element.style.removeProperty('background-size');
+            element.style.removeProperty('background-position');
+            element.style.removeProperty('background-repeat');
+            element.style.removeProperty('background-attachment');
+            element.style.removeProperty('background-color');
+        });
 
-        if (mainArea) {
-            mainArea.style.setProperty(
-                'background-image',
-                darkOverlay,
-                'important'
-            );
+        // AP DUNG ANH NEN TUY CHINH
 
-            mainArea.style.setProperty(
-                'background-size',
-                'cover',
-                'important'
-            );
-
-            mainArea.style.setProperty(
-                'background-position',
-                'center',
-                'important'
-            );
-        }
-
-    } else {
-
-        document.body.style.removeProperty('background-image');
-
-        if (mainArea) {
-            mainArea.style.removeProperty('background-image');
-        }
-    }
-
-    return;
-}
-        // KHÔI PHỤC GIAO DIỆN SÁNG
-
-        const selectedColor =
-            colors[background] || colors.default;
-
-        document.body.style.setProperty(
-            'background-color',
-            selectedColor,
-            'important'
-        );
-
-        if (mainArea) {
-            mainArea.style.setProperty(
-                'background-color',
-                selectedColor,
-                'important'
-            );
-        }
-
-        // ÁP DỤNG ẢNH NỀN ĐÃ CHỌN
-
-        if (background === 'custom' && customImage) {
-
+        if (
+            background === 'custom' &&
+            customImage &&
+            customImage.startsWith('data:image/')
+        ) {
             const imageUrl = 'url("' + customImage + '")';
 
-            document.body.style.setProperty(
-                'background-image',
-                imageUrl,
-                'important'
-            );
+            const finalImage = isDark
+                ? 'linear-gradient(rgba(15,20,35,0.48), rgba(15,20,35,0.48)), ' + imageUrl
+                : imageUrl;
 
-            document.body.style.setProperty(
-                'background-size',
-                'cover',
-                'important'
-            );
+            targets.forEach(element => {
+                element.style.setProperty(
+                    'background-image',
+                    finalImage
+                );
 
-            document.body.style.setProperty(
-                'background-position',
-                'center',
-                'important'
-            );
+                element.style.setProperty(
+                    'background-size',
+                    'cover'
+                );
 
-            document.body.style.setProperty(
-                'background-repeat',
-                'no-repeat',
-                'important'
-            );
+                element.style.setProperty(
+                    'background-position',
+                    'center'
+                );
+
+                element.style.setProperty(
+                    'background-repeat',
+                    'no-repeat'
+                );
+            });
 
             document.body.style.setProperty(
                 'background-attachment',
-                'fixed',
-                'important'
+                'fixed'
             );
 
-            if (mainArea) {
-
-                mainArea.style.setProperty(
-                    'background-image',
-                    imageUrl,
-                    'important'
-                );
-
-                mainArea.style.setProperty(
-                    'background-size',
-                    'cover',
-                    'important'
-                );
-
-                mainArea.style.setProperty(
-                    'background-position',
-                    'center',
-                    'important'
-                );
-
-                mainArea.style.setProperty(
-                    'background-repeat',
-                    'no-repeat',
-                    'important'
-                );
-            }
-
         } else {
+            // AP DUNG MAU NEN
 
-            document.body.style.removeProperty('background-image');
+            const finalColor = isDark
+                ? '#171c2b'
+                : selectedColor;
 
-            if (mainArea) {
-                mainArea.style.removeProperty('background-image');
-            }
+            targets.forEach(element => {
+                element.style.setProperty(
+                    'background-color',
+                    finalColor
+                );
+            });
         }
     }
+
+    // CHO CAC TRANG GOI LAI HAM
+
+    window.applySharedTheme = applySharedTheme;
+
+    // KHOI PHUC GIAO DIEN KHI TAI TRANG
 
     applySharedTheme();
 
