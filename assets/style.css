@@ -210,6 +210,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 }
 
 
+
 /* =========================================
    TRANG CAI DAT - ME & MONEY
 ========================================= */
@@ -240,10 +241,12 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     box-shadow: 0 4px 15px rgba(25, 45, 75, 0.04);
 }
 
+/* TIEU DE VA ICON */
+
 .settings-heading {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     margin-bottom: 24px;
     background: transparent;
     border: none;
@@ -251,27 +254,35 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 }
 
 .settings-icon {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    flex: 0 0 48px;
-    border-radius: 14px;
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    flex: 0 0 58px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    background: #eef3fd;
     color: #3568d4;
     border: none;
 }
 
 .settings-icon svg {
-    width: 23px;
-    height: 23px;
+    width: 28px;
+    height: 28px;
+}
+
+.settings-heading > div:last-child {
+    display: flex;
+    align-items: center;
+    min-height: 58px;
 }
 
 .settings-heading h2 {
     font-size: 19px;
-    margin: 0 0 5px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
     color: #17365d;
 }
 
@@ -340,22 +351,13 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 /* CHU DAYMODE */
 
 .theme-toggle .toggle-label {
-    position: absolute;
-    top: 50%;
-    left: 138px;
-    width: max-content;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    transform: translate(-50%, -50%);
+    margin-left: 81px;
+    margin-right: 0;
     font-size: 16px;
     font-weight: 800;
     color: #171717;
     white-space: nowrap;
-    transition: left 0.4s ease,
-                color 0.35s ease;
-    z-index: 1;
-    pointer-events: none;
+    transition: all 0.4s ease;
 }
 
 /* AN BIEU TUONG MAT TRANG */
@@ -387,16 +389,20 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 
 .theme-toggle.night .toggle-label {
     position: absolute;
-    top: 50%;
-    left: 69px;
-    right: auto;
-    width: max-content;
-    height: auto;
-    display: block;
+    left: 0;
+    right: 58px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     padding: 0;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    white-space: nowrap;
+    box-sizing: border-box;
     z-index: 1;
 }
 
@@ -583,6 +589,31 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
 ========================================= */
 
 @media (max-width: 600px) {
+    .settings-heading {
+        gap: 14px;
+    }
+
+    .settings-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        flex-basis: 50px;
+        border-radius: 14px;
+    }
+
+    .settings-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .settings-heading > div:last-child {
+        min-height: 50px;
+    }
+
+    .settings-heading h2 {
+        font-size: 17px;
+    }
+
     .theme-toggle {
         width: 200px;
         min-width: 200px;
@@ -600,25 +631,12 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:#8794a6;font-
     }
 
     .theme-toggle .toggle-label {
-        top: 50%;
         left: 125px;
-        right: auto;
-        width: max-content;
-        margin: 0;
-        padding: 0;
-        transform: translate(-50%, -50%);
         font-size: 14px;
     }
 
     .theme-toggle.night .toggle-label {
-        top: 50%;
         left: 63px;
-        right: auto;
-        width: max-content;
-        margin: 0;
-        padding: 0;
-        transform: translate(-50%, -50%);
-        font-size: 14px;
     }
 }
 
@@ -640,6 +658,7 @@ body,
                 color 0.3s ease,
                 border-color 0.3s ease;
 }
+
 
 /* =========================================
    CHE DO SANG
@@ -904,6 +923,7 @@ body.dark-mode .table-card {
         min-width: 0;
     }
 }
+
 
 /* Savings and debt module polish */
 .module-banner{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:164px;padding:26px 32px;margin-bottom:18px;border:1px solid #dce8fb;border-radius:18px;background:linear-gradient(115deg,#f1f6ff 0%,#f8fbff 54%,#eef8f5 100%)}
