@@ -33,14 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $copy->execute([$id, $c['id']]);
             }
 
-            $_SESSION['user'] = [
-                'id' => $id,
-                'full_name' => $name,
-                'email' => $email,
-                'role' => 'user'
-            ];
-
-            redirect('index.php');
+            redirect('login.php?registered=1');
 
         } catch (PDOException $e) {
             $error = 'Email này đã được sử dụng.';

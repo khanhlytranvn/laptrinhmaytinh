@@ -1,3 +1,8 @@
+<?php if (isset($_GET['registered'])): ?>
+    <div class="alert alert-success">
+        Đăng ký thành công! Vui lòng đăng nhập để tiếp tục.
+    </div>
+<?php endif; ?>
 <?php
 require 'config.php';
 require 'includes/functions.php';
@@ -25,7 +30,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             'email'=>$u['email'],
             'role'=>$u['role']
         ];
-
+        $_SESSION['show_welcome'] = true;
         redirect('index.php');
     }
 

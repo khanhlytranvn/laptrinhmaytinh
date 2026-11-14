@@ -145,7 +145,77 @@ foreach ($chartRows as $r) {
 }
 
 require 'includes/header.php';
+$showWelcome = !empty($_SESSION['show_welcome']);
+unset($_SESSION['show_welcome']);
 ?>
+
+<?php if ($showWelcome): ?>
+<div id="welcome-screen">
+
+    <div id="welcome-coins"></div>
+
+    <div class="welcome-content">
+
+        <img
+            src="assets/logo qltc.jpg"
+            alt="Me & Money Logo"
+            class="welcome-logo"
+        >
+
+        <h1>Me & Money</h1>
+
+        <p>Quản lý tài chính – Làm chủ tương lai</p>
+
+        <div class="welcome-message">
+            Chào mừng bạn quay trở lại!
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const screen = document.getElementById('welcome-screen');
+    const container = document.getElementById('welcome-coins');
+
+    if (!screen || !container) return;
+
+    // Tạo 30 đồng xu rơi
+    for (let i = 0; i < 30; i++) {
+
+        const coin = document.createElement('span');
+
+        coin.className = 'welcome-coin';
+        coin.textContent = '🪙';
+
+        coin.style.left = Math.random() * 100 + '%';
+
+        coin.style.animationDuration =
+            (1.2 + Math.random() * 0.8) + 's';
+
+        coin.style.animationDelay =
+            (Math.random() * 0.4) + 's';
+
+        coin.style.fontSize =
+            (20 + Math.random() * 20) + 'px';
+
+        container.appendChild(coin);
+    }
+
+    // Ẩn màn hình sau 1,8 giây
+    setTimeout(function () {
+        screen.classList.add('welcome-hide');
+
+        setTimeout(function () {
+            screen.remove();
+        }, 400);
+
+    }, 1800);
+
+});
+</script>
+<?php endif; ?>
 
 <!-- CAC THE TONG QUAN -->
 <div class="grid stats dashboard-stats">
@@ -353,7 +423,8 @@ require 'includes/header.php';
     </section>
 
 </div>
-
+<br>
+<br>
 <!-- GIAO DICH GAN DAY -->
 <section class="card dashboard-transactions">
 
