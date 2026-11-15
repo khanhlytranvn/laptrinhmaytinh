@@ -60,6 +60,19 @@ $stmt = $pdo->prepare("
 $stmt->execute([$uid, $month]);
 $budgets = $stmt->fetchAll();
 
+// Sắp xếp ngân sách theo tỷ lệ đã sử dụng từ cao xuống thấp
+usort($budgets, function ($a, $b) {
+    $percentA = (float)$a['amount'] > 0
+        ? (float)$a['spent'] / (float)$a['amount']
+        : 0;
+
+    $percentB = (float)$b['amount'] > 0
+        ? (float)$b['spent'] / (float)$b['amount']
+        : 0;
+
+    return $percentB <=> $percentA;
+});
+
 // 4. DU LIEU BIEU DO THEO KHOANG THOI GIAN
 
 $period = $_GET['period'] ?? '7days';
@@ -347,7 +360,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
 
         <?php else: ?>
-
+        <div class="budget-scroll"
+          style="height: 330px; max-height: 330px; overflow-y: auto; overflow-x: hidden; padding-right: 8px;">
             <?php foreach ($budgets as $b):
 
                 $amount = (float)$b['amount'];
@@ -417,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
             <?php endforeach; ?>
-
+        </div>
         <?php endif; ?>
 
     </section>
